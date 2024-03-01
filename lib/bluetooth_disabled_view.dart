@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import 'package:bluetooth_detector/utils/snackbar.dart';
+// import 'package:bluetooth_detector/utils/snackbar.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
 
@@ -39,7 +39,7 @@ class BluetoothOffView extends StatelessWidget {
           try {
             await FlutterBluePlus.turnOn();
           } catch (e) {
-            Snackbar.show(ABC.a, prettyException("Error Turning On:", e), success: false);
+            // Snackbar.show(ABC.a, prettyException("Error Turning On:", e), success: false);
           }
         },
       ),
@@ -49,7 +49,7 @@ class BluetoothOffView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
-      key: Snackbar.snackBarKeyA,
+      // key: Snackbar.snackBarKeyA,
       child: Scaffold(
         backgroundColor: colors.background,
         body: Center(
