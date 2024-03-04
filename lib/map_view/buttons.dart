@@ -15,12 +15,14 @@ extension Buttons on MapViewState {
     } else if (scanner.isScanningNow) {
       return FloatingActionButton(
         onPressed: () {
+          t(location);
           stopScan();
+
           showModalBottomSheet(
             context: context,
             isScrollControlled: true,
             builder: (BuildContext context) {
-              return const ReportView();
+              return ReportView(report: report);
             },
           );
         },
