@@ -1,7 +1,7 @@
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:bluetooth_detector/report/device_view.dart';
-import 'package:bluetooth_detector/map_view/map_view.dart';
+import 'package:bluetooth_detector/report/report.dart';
 
 class ReportView extends StatefulWidget {
   Report report;
@@ -24,16 +24,17 @@ class ReportViewState extends State<ReportView> {
                   const Spacer(),
                   Padding(
                       padding: const EdgeInsets.all(4),
-                      child: IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.close)))
+                      child: IconButton(
+                          onPressed: () => Navigator.pop(context),
+                          icon: const Icon(Icons.close, color: colors.foreground)))
                 ],
               ),
-              const Center(
+              Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // ...widget.report.dataPoints.map((dataPoint) => DeviceView(uuid: "Report goes here")),
-                    Text('Report goes here'),
+                    ...widget.report.getDevices().map((e) => DeviceView(device: e)),
                   ],
                 ),
               ),
