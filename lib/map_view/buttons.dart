@@ -17,14 +17,7 @@ extension Buttons on MapViewState {
         onPressed: () {
           t(location);
           stopScan();
-
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (BuildContext context) {
-              return ReportView(report: report);
-            },
-          );
+          Navigator.push(context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(report: report))));
         },
         backgroundColor: colors.altText,
         child: const Icon(
@@ -34,7 +27,10 @@ extension Buttons on MapViewState {
       );
     } else {
       return FloatingActionButton(
-        onPressed: startScan,
+        onPressed: () {
+          report = Report();
+          startScan();
+        },
         backgroundColor: colors.foreground,
         child: const Icon(Icons.play_arrow_rounded, color: colors.primaryText),
       );
