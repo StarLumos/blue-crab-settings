@@ -1,8 +1,19 @@
-part of 'package:bluetooth_detector/map_view/map_view.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:geolocator/geolocator.dart';
 
 class Report {
   DateTime time = DateTime.now();
   List<DataPoint> dataPoints = [];
+
+  List<Device> getDevices() {
+    Set<Device> devices = <Device>{};
+    for (var dataPoint in dataPoints) {
+      for (var device in dataPoint.devices) {
+        devices.add(Device(device.device, device.advertisementData));
+      }
+    }
+    return devices.toList();
+  }
 }
 
 class DataPoint {

@@ -13,11 +13,11 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
-import 'package:bluetooth_detector/report/report_view.dart';
+import 'package:bluetooth_detector/report/report.dart';
+import 'package:bluetooth_detector/report_view/report_view.dart';
 
 part 'package:bluetooth_detector/map_view/map_view_controllers.dart';
 part 'package:bluetooth_detector/map_view/buttons.dart';
-part 'package:bluetooth_detector/report/report.dart';
 
 double clamp(double x, double min, double max) {
   if (x < min) x = min;
