@@ -3,12 +3,14 @@ import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:latlng/latlng.dart';
 
 class DeviceView extends StatelessWidget {
-  Device device;
+  DeviceIdentifier device;
+  Report report;
 
-  DeviceView({super.key, required this.device});
+  DeviceView({super.key, required this.device, required this.report});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +34,16 @@ class DeviceView extends StatelessWidget {
             }, children: [
               TableRow(children: [
                 const Text("UUID", style: TextStyle(color: colors.primaryText)),
-                Text(device.device.remoteId.toString(), style: const TextStyle(color: colors.primaryText)),
+                Text(report[device]!.device.remoteId.toString(), style: const TextStyle(color: colors.primaryText)),
               ]),
               TableRow(children: [
                 const Text("Name", style: TextStyle(color: colors.primaryText)),
-                Text(device.device.advName == "" ? "None" : device.device.advName,
+                Text(report[device]!.device.advName == "" ? "None" : report[device]!.device.advName,
                     style: const TextStyle(color: colors.primaryText)),
               ]),
               TableRow(children: [
                 const Text("Platform", style: TextStyle(color: colors.primaryText)),
-                Text(device.device.platformName == "" ? "Unknown" : device.device.platformName,
+                Text(report[device]!.device.platformName == "" ? "Unknown" : report[device]!.device.platformName,
                     style: const TextStyle(color: colors.primaryText)),
               ]),
             ])));

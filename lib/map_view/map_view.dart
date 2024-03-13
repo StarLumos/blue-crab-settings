@@ -40,7 +40,7 @@ class MapViewState extends State<MapView> {
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  Report report = Report();
+  ReportData reportData = ReportData();
 
   final controller = MapController(
     location: LatLng.degree(45.511280676982636, -122.68334923167914),
@@ -49,7 +49,7 @@ class MapViewState extends State<MapView> {
   void t(Position? pos) {
     setState(() {
       if (pos != null) {
-        report.dataPoints.add(DataPoint(pos, scanner.scanResults));
+        reportData.dataPoints.add(DataPoint(pos, scanner.scanResults));
         location = pos;
         controller.center = LatLng.degree(pos.latitude, pos.longitude);
       }

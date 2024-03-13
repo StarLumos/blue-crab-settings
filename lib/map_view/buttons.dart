@@ -17,7 +17,8 @@ extension Buttons on MapViewState {
         onPressed: () {
           t(location);
           stopScan();
-          Navigator.push(context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(report: report))));
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(reportData: reportData))));
         },
         backgroundColor: colors.altText,
         child: const Icon(
@@ -28,7 +29,7 @@ extension Buttons on MapViewState {
     } else {
       return FloatingActionButton(
         onPressed: () {
-          report = Report();
+          reportData = ReportData();
           startScan();
         },
         backgroundColor: colors.foreground,

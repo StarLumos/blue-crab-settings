@@ -5,14 +5,21 @@ import 'package:bluetooth_detector/report/device_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
 
 class ReportView extends StatefulWidget {
-  Report report;
-  ReportView({super.key, required this.report});
+  ReportData reportData;
+  late Report report;
+  ReportView({super.key, required this.reportData});
 
   @override
   ReportViewState createState() => ReportViewState();
 }
 
 class ReportViewState extends State<ReportView> {
+  @override
+  void initState() {
+    super.initState();
+    widget.report = widget.reportData.generateReport();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +51,7 @@ class ReportViewState extends State<ReportView> {
                   ])),
               Column(
                 children: [
-                  ...widget.report.getDevices().map((e) => DeviceView(device: e)),
+                  ...widget.report.keys.map((e) => DeviceView(device: e, report: widget.report)),
                 ],
               ),
             ],
