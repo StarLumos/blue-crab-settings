@@ -5,4 +5,9 @@ class TextStyles {
   static var normal = const TextStyle(
     color: colors.primaryText,
   );
+  static var title = const TextStyle(
+    color: colors.primaryText,
+    fontSize: 32.0,
+    fontWeight: FontWeight.bold,
+  );
 }
