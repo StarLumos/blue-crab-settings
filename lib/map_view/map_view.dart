@@ -26,7 +26,9 @@ double clamp(double x, double min, double max) {
 }
 
 class MapView extends StatefulWidget {
-  const MapView({super.key});
+  final List<LatLng> markers;
+
+  const MapView({super.key, required this.markers});
 
   @override
   MapViewState createState() => MapViewState();
@@ -43,12 +45,6 @@ class MapViewState extends State<MapView> {
   final controller = MapController(
     location: LatLng.degree(45.511280676982636, -122.68334923167914),
   );
-
-  var markers = [
-    // LatLng.degree(45.47233167853709, -122.58916397400984),
-    // LatLng.degree(39.288842377026285, -76.64454136029799),
-    // LatLng.degree(45.51083352637069, -122.66665975037445),
-  ];
 
   void t(Position? pos) {
     setState(() {
@@ -114,7 +110,7 @@ class MapViewState extends State<MapView> {
 
   void addPoint(Position position) {
     setState(() {
-      markers.add(LatLng.degree(position.latitude, position.longitude));
+      widget.markers.add(LatLng.degree(position.latitude, position.longitude));
     });
   }
 
@@ -132,7 +128,7 @@ class MapViewState extends State<MapView> {
       body: MapLayout(
         controller: controller,
         builder: (context, transformer) {
-          List<Widget> markerWidgets = markers
+          List<Widget> markerWidgets = widget.markers
               .map((location) => buildMarkerWidget(context, transformer.toOffset(location), Colors.red))
               .toList();
           if (location != null) {
@@ -176,7 +172,7 @@ class MapViewState extends State<MapView> {
                       y %= tilesInZoom;
 
                       return CachedNetworkImage(
-                        imageUrl: mapbox(z, x, y),
+                        imageUrl: google(z, x, y),
                         fit: BoxFit.cover,
                       );
                     },
