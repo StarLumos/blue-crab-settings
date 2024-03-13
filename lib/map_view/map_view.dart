@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
+import 'package:bluetooth_detector/map_view/map_functions.dart';
 import 'package:bluetooth_detector/map_view/scanner.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
@@ -82,44 +83,10 @@ class MapViewState extends State<MapView> {
     });
   }
 
-  /// Determine the current position of the device.
-  Future<Position> getLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
-      }
-    }
-
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
-    }
-
-    Position position = await Geolocator.getCurrentPosition();
-    return position;
-  }
-
   void addPoint(Position position) {
     setState(() {
       widget.markers.add(LatLng.degree(position.latitude, position.longitude));
     });
-  }
-
-  void startScan() async {
-    scanner.startScan();
-  }
-
-  void stopScan() {
-    scanner.stopScan();
   }
 
   @override
