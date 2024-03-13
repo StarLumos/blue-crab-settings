@@ -30,10 +30,7 @@ class Scanner {
     // android is slow when asking for all advertisements,
     // so instead we only ask for 1/8 of them
     int divisor = Platform.isAndroid ? 8 : 1;
-    await FlutterBluePlus.startScan(
-        // timeout: const Duration(seconds: 15),
-        continuousUpdates: true,
-        continuousDivisor: divisor);
+    await FlutterBluePlus.startScan(continuousUpdates: true, continuousDivisor: divisor);
   }
 
   Future stopScan() async {
