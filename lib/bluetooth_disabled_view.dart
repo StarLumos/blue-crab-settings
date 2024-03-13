@@ -8,7 +8,7 @@ import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
 
 class BluetoothOffView extends StatelessWidget {
-  const BluetoothOffView({Key? key, this.adapterState}) : super(key: key);
+  const BluetoothOffView({super.key, this.adapterState});
 
   final BluetoothAdapterState? adapterState;
 
@@ -33,7 +33,7 @@ class BluetoothOffView extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: ElevatedButton(
-        style: AppButtonStyle.primaryButtonStyle,
+        style: AppButtonStyle.enableBluetoothButtonStyle,
         child: const Text('TURN ON'),
         onPressed: () async {
           try {
