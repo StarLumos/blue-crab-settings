@@ -47,8 +47,8 @@ class ScannerViewState extends State<ScannerView> {
   void initState() {
     super.initState();
 
-    positionStream =
-        Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(5)).listen((Position? position) {
+    positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
+        .listen((Position? position) {
       t(position);
     });
 
