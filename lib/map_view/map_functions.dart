@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:latlng/latlng.dart';
 
 /// Determine the current position of the device.
 Future<Position> getLocation() async {
@@ -24,4 +26,19 @@ Future<Position> getLocation() async {
 
   Position position = await Geolocator.getCurrentPosition();
   return position;
+}
+
+LatLng middlePoint(List<LatLng> locations) {
+  if (locations.isEmpty) {
+    return LatLng.degree(0.0, 0.0);
+  }
+  List<double> latitudes = [];
+  List<double> longitudes = [];
+  for (var location in locations) {
+    latitudes.insert(0, location.latitude.degrees);
+    longitudes.insert(0, location.longitude.degrees);
+  }
+  double latitude = (latitudes.max + latitudes.min) / 2;
+  double longitude = (longitudes.max + longitudes.min) / 2;
+  return LatLng.degree(latitude, longitude);
 }
