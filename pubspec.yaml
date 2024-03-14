@@ -47,6 +47,7 @@ dependencies:
   time: ^2.1.4
   loading_animation_widget: ^1.2.0+4
   getwidget: ^4.0.0
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:
