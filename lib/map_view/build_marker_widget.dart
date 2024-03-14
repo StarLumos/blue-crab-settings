@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 
-Widget buildMarkerWidget(BuildContext context, Offset pos, Color color, [IconData icon = Icons.location_on]) {
+Widget buildMarkerWidget(BuildContext context, Offset pos, Color color, [IconData icon = Icons.location_pin]) {
   return Positioned(
     left: pos.dx - 24,
     top: pos.dy - 24,
@@ -9,7 +9,7 @@ Widget buildMarkerWidget(BuildContext context, Offset pos, Color color, [IconDat
     height: 48,
     child: GestureDetector(
       child: Stack(children: [
-        const Icon(Icons.circle, color: colors.primaryText, size: 48),
+        if (icon != Icons.location_pin) const Icon(Icons.circle, color: colors.primaryText, size: 48),
         Icon(
           icon,
           color: color,
