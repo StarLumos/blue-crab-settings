@@ -1,9 +1,11 @@
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
 import 'package:bluetooth_detector/styles/text_styles.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:bluetooth_detector/report_view/device_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class ReportView extends StatefulWidget {
   ReportData reportData;
@@ -49,7 +51,11 @@ class ReportViewState extends State<ReportView> {
                   ])),
               Column(
                 children: [
-                  ...widget.report.keys.map((e) => DeviceView(device: e, report: widget.report)),
+                  ...widget.report.keys
+                      .sorted(
+                          (a, b) => widget.report[a]!.locations.length.compareTo(widget.report[b]!.locations.length))
+                      .reversed
+                      .map((e) => DeviceView(device: e, report: widget.report)),
                 ],
               ),
             ],
