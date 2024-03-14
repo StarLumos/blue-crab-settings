@@ -51,7 +51,7 @@ class MapViewState extends State<MapView> {
         );
 
     positionStream =
-        Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(5)).listen((Position? position) {
+        Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(0)).listen((Position? position) {
       location = position;
       if (followUser) {
         widget.controller!.center = LatLng.degree(position!.latitude, position.longitude);
@@ -110,7 +110,7 @@ class MapViewState extends State<MapView> {
                       y %= tilesInZoom;
 
                       return CachedNetworkImage(
-                        imageUrl: google(z, x, y),
+                        imageUrl: mapbox(z, x, y),
                         fit: BoxFit.cover,
                       );
                     },
