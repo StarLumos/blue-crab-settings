@@ -1,4 +1,4 @@
-import 'package:bluetooth_detector/map_view/map_view.dart';
+import 'package:bluetooth_detector/report_view/device_map_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
@@ -21,13 +21,13 @@ class DeviceView extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => MapView(markers: [
-                            LatLng.degree(45.47233167853709, -122.58916397400984),
-                            LatLng.degree(39.288842377026285, -76.64454136029799),
-                            LatLng.degree(45.51083352637069, -122.66665975037445),
-                          ])));
+                      builder: (context) => SafeArea(
+                              child: DeviceMapView(
+                            device: device,
+                            report: report,
+                          ))));
             },
-            style: AppButtonStyle.deviceButtonStyle,
+            style: AppButtonStyle.buttonWithBackground,
             child: Table(columnWidths: const {
               0: FlexColumnWidth(1.0),
               1: FlexColumnWidth(3.0),

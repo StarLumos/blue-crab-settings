@@ -1,7 +1,8 @@
 import 'package:bluetooth_detector/styles/colors.dart';
+import 'package:bluetooth_detector/styles/button_styles.dart';
 import 'package:bluetooth_detector/styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:bluetooth_detector/report/device_view.dart';
+import 'package:bluetooth_detector/report_view/device_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
 
 class ReportView extends StatefulWidget {
@@ -40,14 +41,11 @@ class ReportViewState extends State<ReportView> {
                         const Spacer(),
                       ],
                     ),
-                    Row(
-                      children: [
-                        const Spacer(),
-                        IconButton(
-                            onPressed: () => Navigator.pop(context),
-                            icon: const Icon(Icons.close, color: colors.primaryText))
-                      ],
-                    ),
+                    BackButton(
+                      color: colors.primaryText,
+                      onPressed: () => Navigator.pop(context),
+                      style: AppButtonStyle.buttonWithoutBackground,
+                    )
                   ])),
               Column(
                 children: [
