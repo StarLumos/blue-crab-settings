@@ -35,7 +35,7 @@ extension Controllers on MapViewState {
 
   void onDoubleTap(MapTransformer transformer, Offset position) {
     const delta = 0.5;
-    final zoom = clamp(controller.zoom + delta, 2, 18);
+    final zoom = clamp(widget.controller!.zoom + delta, 2, 18);
 
     transformer.setZoomInPlace(zoom, position);
     setState(() {});
@@ -51,10 +51,10 @@ extension Controllers on MapViewState {
     scaleStart = details.scale;
 
     if (scaleDiff > 0) {
-      controller.zoom += 0.02;
+      widget.controller!.zoom += 0.02;
       setState(() {});
     } else if (scaleDiff < 0) {
-      controller.zoom -= 0.02;
+      widget.controller!.zoom -= 0.02;
       setState(() {});
     } else {
       final now = details.focalPoint;

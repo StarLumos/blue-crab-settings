@@ -3,22 +3,16 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
-import 'package:bluetooth_detector/map_view/map_functions.dart';
-import 'package:bluetooth_detector/map_view/scanner.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
-import 'package:bluetooth_detector/report/report.dart';
-import 'package:bluetooth_detector/report_view/report_view.dart';
 
 part 'package:bluetooth_detector/map_view/map_view_controllers.dart';
-part 'package:bluetooth_detector/map_view/buttons.dart';
 
 double clamp(double x, double min, double max) {
   if (x < min) x = min;
@@ -27,65 +21,42 @@ double clamp(double x, double min, double max) {
 }
 
 class MapView extends StatefulWidget {
-  final List<LatLng> markers;
+  List<LatLng> markers;
+  MapController? controller;
 
-  const MapView({super.key, required this.markers});
+  MapView({
+    super.key,
+    this.markers = const [],
+    this.controller,
+  });
 
   @override
   MapViewState createState() => MapViewState();
 }
 
 class MapViewState extends State<MapView> {
-  Scanner scanner = Scanner();
   Position? location;
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  ReportData reportData = ReportData();
-
-  final controller = MapController(
-    location: LatLng.degree(45.511280676982636, -122.68334923167914),
-  );
-
-  void t(Position? pos) {
-    setState(() {
-      if (pos != null) {
-        reportData.dataPoints.add(DataPoint(pos, scanner.scanResults));
-        location = pos;
-        controller.center = LatLng.degree(pos.latitude, pos.longitude);
-      }
-    });
-  }
+  bool followUser = true;
 
   @override
   void initState() {
     super.initState();
 
+    widget.controller = widget.controller ??
+        MapController(
+          location: LatLng.degree(45.511280676982636, -122.68334923167914),
+        );
+
     positionStream =
         Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(5)).listen((Position? position) {
-      t(position);
-    });
-
-    scanner.scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
-      scanner.scanResults = results;
-      if (mounted) {
-        setState(() {});
+      location = position;
+      if (followUser) {
+        widget.controller!.center = LatLng.degree(position!.latitude, position.longitude);
       }
-    }, onError: (e) {
-      // Snackbar.show(ABC.b, prettyException("Scan Error:", e), success: false);
-    });
-
-    scanner.isScanningSubscription = FlutterBluePlus.isScanning.listen((state) {
-      scanner.isScanning = state;
-      if (mounted) {
-        setState(() {});
-      }
-    });
-  }
-
-  void addPoint(Position position) {
-    setState(() {
-      widget.markers.add(LatLng.degree(position.latitude, position.longitude));
+      setState() {}
     });
   }
 
@@ -93,7 +64,7 @@ class MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: MapLayout(
-        controller: controller,
+        controller: widget.controller!,
         builder: (context, transformer) {
           List<Widget> markerWidgets = widget.markers
               .map((location) => buildMarkerWidget(context, transformer.toOffset(location), Colors.red))
@@ -118,7 +89,7 @@ class MapViewState extends State<MapView> {
               onPointerSignal: (event) {
                 if (event is PointerScrollEvent) {
                   transformer.setZoomInPlace(
-                      clamp(controller.zoom + event.scrollDelta.dy / -1000.0, 2, 18), event.localPosition);
+                      clamp(widget.controller!.zoom + event.scrollDelta.dy / -1000.0, 2, 18), event.localPosition);
                   setState(() {});
                 }
               },
@@ -151,7 +122,6 @@ class MapViewState extends State<MapView> {
           );
         },
       ),
-      floatingActionButton: scanButton(context),
     );
   }
 }

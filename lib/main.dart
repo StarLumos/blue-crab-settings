@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:bluetooth_detector/bluetooth_disabled_view.dart';
-import 'package:bluetooth_detector/map_view/map_view.dart';
+import 'package:bluetooth_detector/map_view/scanner_view.dart';
 
 void main() {
   FlutterBluePlus.setLogLevel(LogLevel.verbose, color: true);
@@ -40,11 +40,8 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    Widget screen = _adapterState == BluetoothAdapterState.on
-        ? const MapView(
-            markers: [],
-          )
-        : BluetoothOffView(adapterState: _adapterState);
+    Widget screen =
+        _adapterState == BluetoothAdapterState.on ? const ScannerView() : BluetoothOffView(adapterState: _adapterState);
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

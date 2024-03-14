@@ -1,6 +1,6 @@
-part of 'package:bluetooth_detector/map_view/map_view.dart';
+part of 'package:bluetooth_detector/map_view/scanner_view.dart';
 
-extension Buttons on MapViewState {
+extension Buttons on ScannerViewState {
   Widget scanButton(BuildContext context) {
     if (location == null) {
       return FloatingActionButton(
@@ -30,6 +30,7 @@ extension Buttons on MapViewState {
       return FloatingActionButton(
         onPressed: () {
           reportData = ReportData();
+          controller.center = LatLng.degree(location!.latitude, location!.longitude);
           scanner.startScan();
         },
         backgroundColor: colors.foreground,
