@@ -5,7 +5,7 @@ import 'package:latlng/latlng.dart';
 typedef Report = Map<DeviceIdentifier, Device?>;
 
 class ReportData {
-  // DateTime time = DateTime.now();
+  DateTime time = DateTime.now();
   List<DataPoint> dataPoints = [];
 
   Report generateReport() {
@@ -14,6 +14,12 @@ class ReportData {
 
     for (Device device in devices) {
       report[device.device.remoteId] = device;
+    }
+
+    for (DataPoint dataPoint in dataPoints) {
+      for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
+        report[deviceID]!.locations.add(LatLng.degree(dataPoint.location.latitude, dataPoint.location.longitude));
+      }
     }
 
     return report;
@@ -40,6 +46,6 @@ class DataPoint {
 class Device {
   BluetoothDevice device;
   AdvertisementData data;
-  late Set<LatLng> locations;
+  Set<LatLng> locations = {};
   Device(this.device, this.data);
 }
