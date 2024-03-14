@@ -11,10 +11,20 @@ class AppButtonStyle {
     surfaceTintColor: MaterialStateProperty.all(colors.transparent),
   );
 
-  static ButtonStyle deviceButtonStyle = ButtonStyle(
+  static ButtonStyle buttonWithBackground = ButtonStyle(
     iconColor: MaterialStateProperty.all(colors.primaryText),
     foregroundColor: MaterialStateProperty.all(colors.primaryText),
     backgroundColor: MaterialStateProperty.all(colors.foreground),
+    overlayColor: MaterialStateProperty.all(colors.altText),
+    shadowColor: MaterialStateProperty.all(colors.transparent),
+    surfaceTintColor: MaterialStateProperty.all(colors.transparent),
+    shape:
+        MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)))),
+  );
+
+  static ButtonStyle buttonWithoutBackground = ButtonStyle(
+    iconColor: MaterialStateProperty.all(colors.primaryText),
+    foregroundColor: MaterialStateProperty.all(colors.primaryText),
     overlayColor: MaterialStateProperty.all(colors.altText),
     shadowColor: MaterialStateProperty.all(colors.transparent),
     surfaceTintColor: MaterialStateProperty.all(colors.transparent),
