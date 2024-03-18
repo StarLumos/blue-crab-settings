@@ -15,7 +15,7 @@ extension Buttons on ScannerViewState {
     } else if (scanner.isScanningNow) {
       return FloatingActionButton(
         onPressed: () {
-          t(location);
+          log(location);
           scanner.stopScan();
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(reportData: reportData))));
@@ -30,7 +30,7 @@ extension Buttons on ScannerViewState {
       return FloatingActionButton(
         onPressed: () {
           reportData = ReportData();
-          controller.center = LatLng.degree(location!.latitude, location!.longitude);
+          recenter();
           scanner.startScan();
         },
         backgroundColor: colors.foreground,

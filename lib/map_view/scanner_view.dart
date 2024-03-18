@@ -33,13 +33,22 @@ class ScannerViewState extends State<ScannerView> {
     location: LatLng.degree(45.511280676982636, -122.68334923167914),
   );
 
-  void t(Position? pos) {
+  void log(Position? pos) {
+    if (pos != null) {
+      reportData.dataPoints.add(DataPoint(pos, scanner.scanResults));
+    }
+  }
+
+  void recenter() {
+    if (location != null) {
+      controller.center = LatLng.degree(location!.latitude, location!.longitude);
+    }
+  }
+
+  void rescan(Position? pos) {
     setState(() {
-      if (pos != null) {
-        reportData.dataPoints.add(DataPoint(pos, scanner.scanResults));
-        location = pos;
-        controller.center = LatLng.degree(pos.latitude, pos.longitude);
-      }
+      scanner.stopScan();
+      scanner.startScan();
     });
   }
 
@@ -49,7 +58,12 @@ class ScannerViewState extends State<ScannerView> {
 
     positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
         .listen((Position? position) {
-      t(position);
+      location = position;
+      if (scanner.isScanning) {
+        log(position);
+        recenter();
+        rescan(position);
+      }
     });
 
     scanner.scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
