@@ -28,6 +28,10 @@
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>bluetooth plz</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>bluetooth plz</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>ur location plz</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>ur location plz</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
