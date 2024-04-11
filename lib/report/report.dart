@@ -5,9 +5,13 @@ import 'package:latlng/latlng.dart';
 typedef Report = Map<DeviceIdentifier, Device?>;
 
 class ReportData {
+  /// Time the report is created
   DateTime time = DateTime.now();
+
+  /// Raw data to generate report from
   List<DataPoint> dataPoints = [];
 
+  /// Generate report based on data from dataPoints
   Report generateReport() {
     Report report = Report();
     Set<Device> devices = _getDevices();
@@ -25,10 +29,11 @@ class ReportData {
     return report;
   }
 
+  /// Get list of devices present in dataPoints
   Set<Device> _getDevices() {
     Set<Device> devices = <Device>{};
-    for (var dataPoint in dataPoints) {
-      for (var device in dataPoint.devices) {
+    for (DataPoint dataPoint in dataPoints) {
+      for (ScanResult device in dataPoint.devices) {
         devices.add(Device(device.device, device.advertisementData));
       }
     }
@@ -36,6 +41,7 @@ class ReportData {
   }
 }
 
+/// Datum used to generate Data
 class DataPoint {
   Position location;
   List<ScanResult> devices;
@@ -43,6 +49,10 @@ class DataPoint {
   DataPoint(this.location, this.devices);
 }
 
+/// Device data type
+///
+/// This type is used to pair details of Bluetooth Devices
+/// along with metadata that goes along with it
 class Device {
   BluetoothDevice device;
   AdvertisementData data;
