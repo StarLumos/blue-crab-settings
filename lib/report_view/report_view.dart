@@ -54,7 +54,7 @@ class ReportViewState extends State<ReportView> {
                       .sorted(
                           (a, b) => widget.report[a]!.locations.length.compareTo(widget.report[b]!.locations.length))
                       .reversed
-                      .map((e) => DeviceView(device: e, report: widget.report)),
+                      .map((e) => DeviceView(deviceID: e, report: widget.report)),
                 ],
               ),
             ],

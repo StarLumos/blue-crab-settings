@@ -6,10 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class DeviceView extends StatelessWidget {
-  DeviceIdentifier device;
+  DeviceIdentifier deviceID;
   Report report;
+  late BluetoothDevice device = report[deviceID]!.device;
 
-  DeviceView({super.key, required this.device, required this.report});
+  DeviceView({super.key, required this.deviceID, required this.report});
+
+  TableRow DataRow(String label, String value) {
+    return TableRow(
+      children: [
+        Text(label, style: TextStyle(color: colors.primaryText)),
+        Text(value, style: const TextStyle(color: colors.primaryText)),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +32,7 @@ class DeviceView extends StatelessWidget {
                   MaterialPageRoute(
                       builder: (context) => SafeArea(
                               child: DeviceMapView(
-                            device: device,
+                            device: deviceID,
                             report: report,
                           ))));
             },
@@ -31,20 +41,9 @@ class DeviceView extends StatelessWidget {
               0: FlexColumnWidth(1.0),
               1: FlexColumnWidth(3.0),
             }, children: [
-              TableRow(children: [
-                const Text("UUID", style: TextStyle(color: colors.primaryText)),
-                Text(report[device]!.device.remoteId.toString(), style: const TextStyle(color: colors.primaryText)),
-              ]),
-              TableRow(children: [
-                const Text("Name", style: TextStyle(color: colors.primaryText)),
-                Text(report[device]!.device.advName == "" ? "None" : report[device]!.device.advName,
-                    style: const TextStyle(color: colors.primaryText)),
-              ]),
-              TableRow(children: [
-                const Text("Platform", style: TextStyle(color: colors.primaryText)),
-                Text(report[device]!.device.platformName == "" ? "Unknown" : report[device]!.device.platformName,
-                    style: const TextStyle(color: colors.primaryText)),
-              ]),
+              DataRow("UUID", device.remoteId.toString()),
+              DataRow("Name", device.advName == "" ? "None" : device.advName),
+              DataRow("Platform", device.advName == "" ? "Unknown" : device.platformName),
             ])));
   }
 }
