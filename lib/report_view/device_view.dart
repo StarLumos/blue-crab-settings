@@ -1,3 +1,4 @@
+import 'package:bluetooth_detector/assigned_numbers/company_identifiers.dart';
 import 'package:bluetooth_detector/report_view/device_map_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
@@ -8,7 +9,10 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 class DeviceView extends StatelessWidget {
   DeviceIdentifier deviceID;
   Report report;
-  late BluetoothDevice device = report[deviceID]!.device;
+  late Device device = report[deviceID]!;
+  late BluetoothDevice deviceData = device.device;
+  late Iterable<String> manufacturers = device.data.manufacturerData.keys
+      .map((e) => company_identifiers["0x" + e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
 
   DeviceView({super.key, required this.deviceID, required this.report});
 
@@ -41,9 +45,10 @@ class DeviceView extends StatelessWidget {
               0: FlexColumnWidth(1.0),
               1: FlexColumnWidth(3.0),
             }, children: [
-              DataRow("UUID", device.remoteId.toString()),
-              DataRow("Name", device.advName == "" ? "None" : device.advName),
-              DataRow("Platform", device.advName == "" ? "Unknown" : device.platformName),
+              DataRow("UUID", deviceData.remoteId.toString()),
+              if (!deviceData.advName.isEmpty) DataRow("Name", deviceData.advName),
+              if (!deviceData.platformName.isEmpty) DataRow("Platform", deviceData.platformName),
+              if (!manufacturers.isEmpty) DataRow("Manufacturer", manufacturers.join(", ")),
             ])));
   }
 }
