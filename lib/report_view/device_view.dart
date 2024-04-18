@@ -12,7 +12,7 @@ class DeviceView extends StatelessWidget {
   late Device device = report[deviceID]!;
   late BluetoothDevice deviceData = device.device;
   late Iterable<String> manufacturers = device.data.manufacturerData.keys
-      .map((e) => company_identifiers["0x" + e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
+      .map((e) => company_identifiers[e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
 
   DeviceView({super.key, required this.deviceID, required this.report});
 
