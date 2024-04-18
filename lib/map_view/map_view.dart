@@ -67,14 +67,26 @@ class MapViewState extends State<MapView> {
         controller: widget.controller!,
         builder: (context, transformer) {
           List<Widget> markerWidgets = widget.markers
-              .map((location) => buildMarkerWidget(context, transformer.toOffset(location), Colors.red))
+              .map((location) => buildMarkerWidget(
+                  context,
+                  transformer.toOffset(location),
+                  Icon(
+                    Icons.location_pin,
+                    color: Colors.red,
+                    size: 48.0,
+                  ),
+                  false))
               .toList();
           if (location != null) {
             markerWidgets.add(buildMarkerWidget(
                 context,
                 transformer.toOffset(LatLng.degree(location!.latitude, location!.longitude)),
-                colors.foreground,
-                Icons.account_circle));
+                Icon(
+                  Icons.account_circle,
+                  color: colors.foreground,
+                  size: 48.0,
+                ),
+                true));
           }
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
