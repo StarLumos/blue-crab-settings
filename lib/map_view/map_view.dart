@@ -71,9 +71,9 @@ class MapViewState extends State<MapView> {
                   context,
                   transformer.toOffset(location),
                   Icon(
-                    Icons.location_pin,
+                    Icons.circle,
                     color: Colors.red,
-                    size: 48.0,
+                    size: 24.0,
                   ),
                   false))
               .toList();
