@@ -35,10 +35,6 @@ class ScannerViewState extends State<ScannerView> {
   List<ScanResult> scanResults = [];
   List<BluetoothDevice> systemDevices = [];
 
-  final controller = MapController(
-    location: LatLng.degree(45.511280676982636, -122.68334923167914),
-  );
-
   void log(Position? pos) {
     if (pos != null) {
       reportData.dataPoints.add(DataPoint(pos, scanResults));

@@ -6,7 +6,6 @@ extension Buttons on ScannerViewState {
       return FloatingActionButton.large(
         onPressed: () async {
           location = await getLocation();
-          controller.center = LatLng.degree(location!.latitude, location!.longitude);
           setState(() {});
         },
         backgroundColor: colors.foreground,
