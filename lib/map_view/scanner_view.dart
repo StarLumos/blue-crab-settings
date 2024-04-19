@@ -85,9 +85,6 @@ class ScannerViewState extends State<ScannerView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MapView(controller: controller),
-      floatingActionButton: scanButton(context),
-    );
+    return Scaffold(backgroundColor: colors.background, body: Center(child: scanButton(context)));
   }
 }
