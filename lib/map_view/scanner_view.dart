@@ -8,8 +8,6 @@ import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:latlng/latlng.dart';
-import 'package:map/map.dart';
 import 'package:bluetooth_detector/report/report.dart';
 
 part 'package:bluetooth_detector/map_view/buttons.dart';
