@@ -12,11 +12,11 @@ extension Buttons on ScannerViewState {
         backgroundColor: colors.foreground,
         child: const Icon(Icons.location_searching, color: colors.primaryText),
       );
-    } else if (scanner.isScanningNow) {
+    } else if (isScanningNow) {
       return FloatingActionButton.large(
         onPressed: () {
           log(location);
-          scanner.stopScan();
+          stopScan();
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(reportData: reportData))));
         },
@@ -28,7 +28,7 @@ extension Buttons on ScannerViewState {
         onPressed: () {
           reportData = ReportData();
           recenter();
-          scanner.startScan();
+          startScan();
         },
         backgroundColor: colors.foreground,
         child: const Icon(Icons.play_arrow_rounded, color: colors.primaryText),

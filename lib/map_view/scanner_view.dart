@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bluetooth_detector/map_view/map_functions.dart';
 import 'package:bluetooth_detector/map_view/map_view.dart';
-import 'package:bluetooth_detector/map_view/scanner.dart';
 import 'package:bluetooth_detector/report_view/report_view.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ import 'package:map/map.dart';
 import 'package:bluetooth_detector/report/report.dart';
 
 part 'package:bluetooth_detector/map_view/buttons.dart';
+part 'package:bluetooth_detector/map_view/scanner.dart';
 
 class ScannerView extends StatefulWidget {
   const ScannerView({super.key});
@@ -22,12 +23,18 @@ class ScannerView extends StatefulWidget {
 }
 
 class ScannerViewState extends State<ScannerView> {
-  Scanner scanner = Scanner();
   Position? location;
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
   ReportData reportData = ReportData();
+
+  bool isScanning = false;
+  late StreamSubscription<bool> isScanningSubscription;
+  late StreamSubscription<List<ScanResult>> scanResultsSubscription;
+  List<ScanResult> scanResults = [];
+  List<BluetoothDevice> systemDevices = [];
+  bool get isScanningNow => FlutterBluePlus.isScanningNow;
 
   final controller = MapController(
     location: LatLng.degree(45.511280676982636, -122.68334923167914),
@@ -35,7 +42,7 @@ class ScannerViewState extends State<ScannerView> {
 
   void log(Position? pos) {
     if (pos != null) {
-      reportData.dataPoints.add(DataPoint(pos, scanner.scanResults));
+      reportData.dataPoints.add(DataPoint(pos, scanResults));
     }
   }
 
@@ -47,8 +54,8 @@ class ScannerViewState extends State<ScannerView> {
 
   void rescan(Position? pos) {
     setState(() {
-      scanner.stopScan();
-      scanner.startScan();
+      stopScan();
+      startScan();
     });
   }
 
@@ -58,16 +65,18 @@ class ScannerViewState extends State<ScannerView> {
 
     positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
         .listen((Position? position) {
-      location = position;
-      if (scanner.isScanning) {
+      setState(() {
+        location = position;
+      });
+      if (isScanning) {
         log(position);
         recenter();
         rescan(position);
       }
     });
 
-    scanner.scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
-      scanner.scanResults = results;
+    scanResultsSubscription = FlutterBluePlus.onScanResults.listen((results) {
+      scanResults = results;
       if (mounted) {
         setState(() {});
       }
@@ -75,8 +84,8 @@ class ScannerViewState extends State<ScannerView> {
       // Snackbar.show(ABC.b, prettyException("Scan Error:", e), success: false);
     });
 
-    scanner.isScanningSubscription = FlutterBluePlus.isScanning.listen((state) {
-      scanner.isScanning = state;
+    isScanningSubscription = FlutterBluePlus.isScanning.listen((state) {
+      isScanning = state;
       if (mounted) {
         setState(() {});
       }
@@ -85,6 +94,9 @@ class ScannerViewState extends State<ScannerView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: colors.background, body: Center(child: scanButton(context)));
+    return Scaffold(
+      backgroundColor: colors.background,
+      body: Center(child: scanButton(context)),
+    );
   }
 }

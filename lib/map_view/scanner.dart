@@ -1,25 +1,6 @@
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'dart:io';
-import 'dart:async';
+part of 'package:bluetooth_detector/map_view/scanner_view.dart';
 
-class Scanner {
-  bool isScanning = false;
-  late StreamSubscription<bool> isScanningSubscription;
-  late StreamSubscription<List<ScanResult>> scanResultsSubscription;
-  List<ScanResult> scanResults = [];
-  List<BluetoothDevice> systemDevices = [];
-  bool get isScanningNow => FlutterBluePlus.isScanningNow;
-
-  Scanner() {
-    scanResultsSubscription = FlutterBluePlus.scanResults.listen((results) {
-      scanResults = results;
-    });
-
-    isScanningSubscription = FlutterBluePlus.isScanning.listen((state) {
-      isScanning = state;
-    });
-  }
-
+extension Scanner on ScannerViewState {
   void dispose() {
     scanResultsSubscription.cancel();
     isScanningSubscription.cancel();
