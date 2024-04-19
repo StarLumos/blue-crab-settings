@@ -46,19 +46,6 @@ class ScannerViewState extends State<ScannerView> {
     }
   }
 
-  void recenter() {
-    if (location != null) {
-      controller.center = LatLng.degree(location!.latitude, location!.longitude);
-    }
-  }
-
-  void rescan(Position? pos) {
-    setState(() {
-      stopScan();
-      startScan();
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -70,7 +57,6 @@ class ScannerViewState extends State<ScannerView> {
       });
       if (isScanning) {
         log(position);
-        recenter();
         rescan(position);
       }
     });

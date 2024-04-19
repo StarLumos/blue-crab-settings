@@ -27,7 +27,6 @@ extension Buttons on ScannerViewState {
       return FloatingActionButton.large(
         onPressed: () {
           reportData = ReportData();
-          recenter();
           startScan();
         },
         backgroundColor: colors.foreground,
