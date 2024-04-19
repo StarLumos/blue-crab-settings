@@ -33,7 +33,10 @@ class ScannerViewState extends State<ScannerView> {
   List<ScanResult> scanResults = [];
   List<BluetoothDevice> systemDevices = [];
 
-  final Stream _timeStream = Stream.periodic(const Duration(seconds: 10), (int x) {
+  late StreamSubscription<DateTime> timeStreamSubscription;
+  DateTime time = DateTime.now();
+
+  final Stream<DateTime> _timeStream = Stream.periodic(const Duration(seconds: 10), (int x) {
     return DateTime.now();
   });
 
@@ -72,6 +75,12 @@ class ScannerViewState extends State<ScannerView> {
       if (mounted) {
         setState(() {});
       }
+    });
+
+    timeStreamSubscription = _timeStream.listen((currentTime) {
+      setState(() {
+        time = currentTime;
+      });
     });
   }
 
