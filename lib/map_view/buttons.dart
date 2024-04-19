@@ -12,7 +12,7 @@ extension Buttons on ScannerViewState {
         backgroundColor: colors.foreground,
         child: const Icon(Icons.location_searching, color: colors.primaryText),
       );
-    } else if (isScanningNow) {
+    } else if (FlutterBluePlus.isScanningNow) {
       return FloatingActionButton.large(
         onPressed: () {
           log(location);

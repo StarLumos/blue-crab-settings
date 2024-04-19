@@ -34,7 +34,6 @@ class ScannerViewState extends State<ScannerView> {
   late StreamSubscription<List<ScanResult>> scanResultsSubscription;
   List<ScanResult> scanResults = [];
   List<BluetoothDevice> systemDevices = [];
-  bool get isScanningNow => FlutterBluePlus.isScanningNow;
 
   final controller = MapController(
     location: LatLng.degree(45.511280676982636, -122.68334923167914),
