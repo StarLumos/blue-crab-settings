@@ -7,11 +7,9 @@ extension Scanner on ScannerViewState {
   }
 
   Future startScan() async {
-    systemDevices = await FlutterBluePlus.systemDevices;
     // android is slow when asking for all advertisements,
     // so instead we only ask for 1/8 of them
-    int divisor = Platform.isAndroid ? 8 : 1;
-    await FlutterBluePlus.startScan(continuousUpdates: true, continuousDivisor: divisor);
+    await FlutterBluePlus.startScan(continuousUpdates: true, continuousDivisor: Platform.isAndroid ? 8 : 1);
   }
 
   Future stopScan() async {
