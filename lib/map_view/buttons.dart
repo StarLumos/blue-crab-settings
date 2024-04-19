@@ -14,7 +14,7 @@ extension Buttons on ScannerViewState {
     } else if (FlutterBluePlus.isScanningNow) {
       return FloatingActionButton.large(
         onPressed: () {
-          log(location);
+          log();
           stopScan();
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(reportData: reportData))));

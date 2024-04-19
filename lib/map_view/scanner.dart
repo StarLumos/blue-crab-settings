@@ -16,7 +16,7 @@ extension Scanner on ScannerViewState {
     FlutterBluePlus.stopScan();
   }
 
-  void rescan(Position? pos) {
+  void rescan() {
     setState(() {
       stopScan();
       startScan();

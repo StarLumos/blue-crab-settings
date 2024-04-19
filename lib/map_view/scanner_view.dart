@@ -40,10 +40,8 @@ class ScannerViewState extends State<ScannerView> {
     return DateTime.now();
   });
 
-  void log(Position? pos) {
-    if (pos != null) {
-      reportData.dataPoints.add(DataPoint(pos, scanResults));
-    }
+  void log() {
+    reportData.dataPoints.add(DataPoint(location, scanResults));
   }
 
   @override
@@ -56,8 +54,8 @@ class ScannerViewState extends State<ScannerView> {
         location = position;
       });
       if (isScanning) {
-        log(position);
-        rescan(position);
+        log();
+        rescan();
       }
     });
 

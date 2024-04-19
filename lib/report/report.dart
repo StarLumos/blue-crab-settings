@@ -22,7 +22,9 @@ class ReportData {
 
     for (DataPoint dataPoint in dataPoints) {
       for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
-        report[deviceID]!.locations.add(LatLng.degree(dataPoint.location.latitude, dataPoint.location.longitude));
+        if (dataPoint.location != null) {
+          report[deviceID]!.locations.add(LatLng.degree(dataPoint.location!.latitude, dataPoint.location!.longitude));
+        }
       }
     }
 
@@ -43,7 +45,7 @@ class ReportData {
 
 /// Datum used to generate Data
 class DataPoint {
-  Position location;
+  Position? location;
   List<ScanResult> devices;
   DateTime time = DateTime.now();
   DataPoint(this.location, this.devices);
