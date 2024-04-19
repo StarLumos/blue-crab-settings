@@ -33,6 +33,10 @@ class ScannerViewState extends State<ScannerView> {
   List<ScanResult> scanResults = [];
   List<BluetoothDevice> systemDevices = [];
 
+  final Stream _timeStream = Stream.periodic(const Duration(seconds: 10), (int x) {
+    return DateTime.now();
+  });
+
   void log(Position? pos) {
     if (pos != null) {
       reportData.dataPoints.add(DataPoint(pos, scanResults));
