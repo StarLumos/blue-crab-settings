@@ -1,6 +1,8 @@
+import 'package:collection/collection.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
+import 'package:bluetooth_detector/settings.dart';
 
 typedef Report = Map<DeviceIdentifier, Device?>;
 
@@ -21,10 +23,11 @@ class ReportData {
     }
 
     for (DataPoint dataPoint in dataPoints) {
-      for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
-        if (dataPoint.location != null) {
-          report[deviceID]!.locations.add(LatLng.degree(dataPoint.location!.latitude, dataPoint.location!.longitude));
-        }
+      for (DeviceIdentifier deviceID
+          in dataPoint.devices.map((e) => e.device.remoteId)) {
+        report[deviceID]!
+            .dataPoints
+            .add(DeviceDataPoint(dataPoint.time, dataPoint.location));
       }
     }
 
@@ -51,6 +54,12 @@ class DataPoint {
   DataPoint(this.location, this.devices);
 }
 
+class DeviceDataPoint {
+  DateTime time;
+  Position? location;
+  DeviceDataPoint(this.time, this.location);
+}
+
 /// Device data type
 ///
 /// This type is used to pair details of Bluetooth Devices
@@ -58,6 +67,30 @@ class DataPoint {
 class Device {
   BluetoothDevice device;
   AdvertisementData data;
-  Set<LatLng> locations = {};
+  Set<DeviceDataPoint> dataPoints = {};
   Device(this.device, this.data);
+
+  late Set<LatLng> locations = (() {
+    Set<LatLng> locations = {};
+    for (DeviceDataPoint dataPoint in this.dataPoints) {
+      if (dataPoint.location == null) continue;
+      locations.add(LatLng.degree(
+          dataPoint.location!.latitude, dataPoint.location!.longitude));
+    }
+    return locations;
+  })();
+
+  late int incidence = (() {
+    int result = 0;
+    List<DeviceDataPoint> dataPoints =
+        this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
+    while (dataPoints.length > 1) {
+      DateTime a = dataPoints.elementAt(0).time;
+      DateTime b = dataPoints.elementAt(1).time;
+      Duration c = b.difference(a);
+      result += c > Duration(seconds: Settings.scanTime * 2) ? 1 : 0;
+      dataPoints.removeAt(0);
+    }
+    return result;
+  })();
 }

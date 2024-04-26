@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bluetooth_detector/report/report.dart';
+import 'package:bluetooth_detector/settings.dart';
 
 part 'package:bluetooth_detector/map_view/buttons.dart';
 part 'package:bluetooth_detector/map_view/scanner.dart';
@@ -34,9 +35,9 @@ class ScannerViewState extends State<ScannerView> {
   List<BluetoothDevice> systemDevices = [];
 
   late StreamSubscription<DateTime> timeStreamSubscription;
-  static const int rescanTime = 10;
 
-  final Stream<DateTime> _timeStream = Stream.periodic(const Duration(seconds: rescanTime), (int x) {
+  final Stream<DateTime> _timeStream =
+      Stream.periodic(Duration(seconds: Settings.scanTime), (int x) {
     return DateTime.now();
   });
 
@@ -48,7 +49,8 @@ class ScannerViewState extends State<ScannerView> {
   void initState() {
     super.initState();
 
-    positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
+    positionStream = Geolocator.getPositionStream(
+            locationSettings: Controllers.getLocationSettings(30))
         .listen((Position? position) {
       setState(() {
         location = position;
