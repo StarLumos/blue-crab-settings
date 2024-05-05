@@ -11,26 +11,28 @@ class DeviceView extends StatelessWidget {
   Report report;
   late Device device = report[deviceID]!;
   late BluetoothDevice deviceData = device.device;
-  late Iterable<String> manufacturers = device.data.manufacturerData.keys.map(
-      (e) =>
-          company_identifiers[
-              e.toRadixString(16).toUpperCase().padLeft(4, "0")] ??
-          "Unknown");
+  late Iterable<String> manufacturers = device.data.manufacturerData.keys
+      .map((e) => company_identifiers[e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
 
   DeviceView({super.key, required this.deviceID, required this.report});
 
-  TableRow DataRow(String label, String value) {
-    return TableRow(
+  Widget DataRow(String label, String value) {
+    return Row(
       children: [
-        Text(label, style: TextStyle(color: colors.primaryText)),
-        Text(value, style: const TextStyle(color: colors.primaryText)),
+        Text(label, style: const TextStyle(color: colors.primaryText)),
+        if (label.isNotEmpty) Text(": ", style: const TextStyle(color: colors.primaryText)),
+        Text(value.toString(), style: const TextStyle(color: colors.primaryText)),
       ],
     );
   }
 
+  Widget Tile(String label, Object value, [Color? color = null]) {
+    return Container(color: color, child: Center(child: Column(children: [Text(label), Text(value.toString())])));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
         padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
         child: TextButton(
             onPressed: () {
@@ -45,31 +47,19 @@ class DeviceView extends StatelessWidget {
             },
             style: AppButtonStyle.buttonWithBackground,
             child: Column(children: [
-              Table(columnWidths: const {
-                0: FlexColumnWidth(1.0),
-                1: FlexColumnWidth(3.0),
-              }, children: [
-                DataRow("UUID", deviceData.remoteId.toString()),
-                if (!deviceData.advName.isEmpty)
-                  DataRow("Name", deviceData.advName),
-                if (!deviceData.platformName.isEmpty)
-                  DataRow("Platform", deviceData.platformName),
-                if (!manufacturers.isEmpty)
-                  DataRow("Manufacturer", manufacturers.join(", ")),
-              ]),
+              DataRow("", deviceData.remoteId.toString()),
+              if (!deviceData.advName.isEmpty) DataRow("Name", deviceData.advName),
+              if (!deviceData.platformName.isEmpty) DataRow("Platform", deviceData.platformName),
+              if (!manufacturers.isEmpty) DataRow("Manufacturer", manufacturers.join(", ")),
               Table(columnWidths: const {
                 0: FlexColumnWidth(1.0),
                 1: FlexColumnWidth(1.0),
                 2: FlexColumnWidth(1.0),
               }, children: [
                 TableRow(children: [
-                  Center(
-                      child: Column(children: [
-                    Text("Incidence"),
-                    Text(device.incidence.toString())
-                  ])),
-                  Center(child: Text("Text2")),
-                  Center(child: Text("Text3")),
+                  Tile("Incidence", device.incidence, colors.altText),
+                  Tile("Text2", device.incidence, colors.background),
+                  Tile("Text3", device.incidence),
                 ])
               ]),
             ])));
