@@ -4,11 +4,14 @@ import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
+import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
@@ -22,13 +25,15 @@ double clamp(double x, double min, double max) {
 }
 
 class MapView extends StatefulWidget {
-  List<LatLng> markers;
   MapController? controller;
+  Report report;
+  DeviceIdentifier? deviceID;
 
   MapView({
     super.key,
-    this.markers = const [],
     this.controller,
+    this.report = const {},
+    this.deviceID,
   });
 
   @override
@@ -67,7 +72,8 @@ class MapViewState extends State<MapView> {
       body: MapLayout(
         controller: widget.controller!,
         builder: (context, transformer) {
-          List<Widget> markerWidgets = widget.markers
+          List<Widget>? markerWidgets = widget.report[widget.deviceID]!.locations
+              .toList()
               .map((location) => buildMarkerWidget(
                   context,
                   transformer.toOffset(location),
@@ -128,6 +134,9 @@ class MapViewState extends State<MapView> {
                       );
                     },
                   ),
+                  CustomPaint(
+                    painter: PolylinePainter(transformer, widget.report, deviceID: widget.deviceID),
+                  ),
                   ...markerWidgets,
                 ],
               ),
@@ -137,4 +146,42 @@ class MapViewState extends State<MapView> {
       ),
     );
   }
+}
+
+class PolylinePainter extends CustomPainter {
+  PolylinePainter(this.transformer, this.report, {this.deviceID});
+
+  Report report;
+  DeviceIdentifier? deviceID;
+  final MapTransformer transformer;
+
+  Offset generateOffset(Position p) {
+    LatLng coordinate = LatLng.degree(p.latitude, p.longitude);
+    return transformer.toOffset(coordinate);
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..strokeWidth = 4;
+    List<DeviceDataPoint> x = report[deviceID]!.dataPoints.sorted((x, y) {
+      return x.time.compareTo(y.time);
+    });
+
+    paint.color = colors.altText;
+    for (int i = 0; i < x.length - 1; i++) {
+      var p1 = generateOffset(x[i].location!);
+      var p2 = generateOffset(x[i + 1].location!);
+      canvas.drawLine(p1, p2, paint);
+    }
+  }
+
+  // Since this Sky painter has no fields, it always paints
+  // the same thing and semantics information is the same.
+  // Therefore we return false here. If we had fields (set
+  // from the constructor) then we would return true if any
+  // of them differed from the same fields on the oldDelegate.
+  @override
+  bool shouldRepaint(PolylinePainter oldDelegate) => false;
+  @override
+  bool shouldRebuildSemantics(PolylinePainter oldDelegate) => false;
 }
