@@ -169,8 +169,11 @@ class PolylinePainter extends CustomPainter {
 
     paint.color = colors.altText;
     for (int i = 0; i < x.length - 1; i++) {
-      var p1 = generateOffset(x[i].location!);
-      var p2 = generateOffset(x[i + 1].location!);
+      DateTime time1 = x[i].time;
+      DateTime time2 = x[i + 1].time;
+      if (time1.difference(time2) < Settings.scanTime) continue;
+      Offset p1 = generateOffset(x[i].location!);
+      Offset p2 = generateOffset(x[i + 1].location!);
       canvas.drawLine(p1, p2, paint);
     }
   }
