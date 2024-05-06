@@ -37,7 +37,7 @@ class ScannerViewState extends State<ScannerView> {
 
   late StreamSubscription<DateTime> timeStreamSubscription;
 
-  final Stream<DateTime> _timeStream = Stream.periodic(Duration(seconds: Settings.scanTime), (int x) {
+  final Stream<DateTime> _timeStream = Stream.periodic(Settings.scanTime, (int x) {
     return DateTime.now();
   });
 

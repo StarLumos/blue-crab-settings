@@ -83,7 +83,7 @@ class Device {
       DateTime a = dataPoints.elementAt(0).time;
       DateTime b = dataPoints.elementAt(1).time;
       Duration c = b.difference(a);
-      result += c > Duration(seconds: Settings.scanTime * 2) ? 1 : 0;
+      result += c > (Settings.scanTime * 2) ? 1 : 0;
       dataPoints.removeAt(0);
     }
     return result;
