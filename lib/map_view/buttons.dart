@@ -16,6 +16,9 @@ extension Buttons on ScannerViewState {
         onPressed: () {
           log();
           stopScan();
+          Vibration.vibrate(
+              pattern: [250, 100, 100, 100, 100, 100, 250, 100, 500, 250, 250, 100, 750, 500],
+              intensities: [255, 0, 255, 0, 255, 0, 255, 0, 255, 0, 255, 0, 255, 0]);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(reportData: reportData))));
         },
