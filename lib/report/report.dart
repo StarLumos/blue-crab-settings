@@ -23,11 +23,8 @@ class ReportData {
     }
 
     for (DataPoint dataPoint in dataPoints) {
-      for (DeviceIdentifier deviceID
-          in dataPoint.devices.map((e) => e.device.remoteId)) {
-        report[deviceID]!
-            .dataPoints
-            .add(DeviceDataPoint(dataPoint.time, dataPoint.location));
+      for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
+        report[deviceID]!.dataPoints.add(DeviceDataPoint(dataPoint.time, dataPoint.location));
       }
     }
 
@@ -74,16 +71,14 @@ class Device {
     Set<LatLng> locations = {};
     for (DeviceDataPoint dataPoint in this.dataPoints) {
       if (dataPoint.location == null) continue;
-      locations.add(LatLng.degree(
-          dataPoint.location!.latitude, dataPoint.location!.longitude));
+      locations.add(LatLng.degree(dataPoint.location!.latitude, dataPoint.location!.longitude));
     }
     return locations;
   })();
 
   late int incidence = (() {
     int result = 0;
-    List<DeviceDataPoint> dataPoints =
-        this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
+    List<DeviceDataPoint> dataPoints = this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
     while (dataPoints.length > 1) {
       DateTime a = dataPoints.elementAt(0).time;
       DateTime b = dataPoints.elementAt(1).time;
@@ -93,4 +88,37 @@ class Device {
     }
     return result;
   })();
+
+  late Set<Area> areas = (() {
+    Set<Area> result = {};
+    for (LatLng curr in locations) {
+      if (result.isEmpty) {
+        Area a = {};
+        a.add(curr);
+        result.add(a);
+        continue;
+      }
+      for (Area area in result) {
+        for (LatLng location in area) {
+          double distance = Geolocator.distanceBetween(
+              curr.latitude.degrees, curr.longitude.degrees, location.latitude.degrees, location.longitude.degrees);
+          if (distance <= Settings.distance) {
+            area.add(curr);
+            break;
+          }
+        }
+      }
+    }
+    for (Area area1 in result) {
+      for (Area area2 in result.difference({area1})) {
+        if (area1.intersection(area2).isNotEmpty) {
+          area1 = area1.union(area2);
+          result.remove(area2);
+        }
+      }
+    }
+    return result;
+  })();
 }
+
+typedef Area = Set<LatLng>;

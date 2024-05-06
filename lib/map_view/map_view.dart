@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
+import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/gestures.dart';
@@ -50,8 +51,8 @@ class MapViewState extends State<MapView> {
           location: LatLng.degree(45.511280676982636, -122.68334923167914),
         );
 
-    positionStream =
-        Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(0)).listen((Position? position) {
+    positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(Settings.distance))
+        .listen((Position? position) {
       location = position;
       if (followUser) {
         widget.controller!.center = LatLng.degree(position!.latitude, position.longitude);
