@@ -17,13 +17,16 @@ class DeviceView extends StatelessWidget {
   DeviceView({super.key, required this.deviceID, required this.report});
 
   Widget DataRow(String label, String value) {
-    return Row(
-      children: [
-        Text(label, style: const TextStyle(color: colors.primaryText)),
-        if (label.isNotEmpty) Text(": ", style: const TextStyle(color: colors.primaryText)),
-        Text(value.toString(), style: const TextStyle(color: colors.primaryText)),
-      ],
-    );
+    if (value.isEmpty) {
+      return SizedBox.shrink();
+    }
+    String text = label;
+    if (label.isNotEmpty) {
+      text += ": ";
+    }
+    text += value;
+
+    return Text(text, style: const TextStyle(color: colors.primaryText), textAlign: TextAlign.left);
   }
 
   Widget Tile(String label, Object value, [Color? color = null]) {
@@ -46,11 +49,11 @@ class DeviceView extends StatelessWidget {
                           ))));
             },
             style: AppButtonStyle.buttonWithBackground,
-            child: Column(children: [
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               DataRow("", deviceData.remoteId.toString()),
-              if (!deviceData.advName.isEmpty) DataRow("Name", deviceData.advName),
-              if (!deviceData.platformName.isEmpty) DataRow("Platform", deviceData.platformName),
-              if (!manufacturers.isEmpty) DataRow("Manufacturer", manufacturers.join(", ")),
+              DataRow("Name", deviceData.advName),
+              DataRow("Platform", deviceData.platformName),
+              DataRow("Manufacturer", manufacturers.join(", ")),
               Table(columnWidths: const {
                 0: FlexColumnWidth(1.0),
                 1: FlexColumnWidth(1.0),
