@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
+import 'package:bluetooth_detector/map_view/position.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
 import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/settings.dart';
@@ -41,7 +42,7 @@ class MapView extends StatefulWidget {
 }
 
 class MapViewState extends State<MapView> {
-  Position? location;
+  LatLng? location;
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
@@ -58,9 +59,9 @@ class MapViewState extends State<MapView> {
 
     positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(Settings.distance))
         .listen((Position? position) {
-      location = position;
+      location = position?.toLatLng();
       if (followUser) {
-        widget.controller!.center = LatLng.degree(position!.latitude, position.longitude);
+        widget.controller?.center = location!;
       }
       setState() {}
     });
@@ -87,7 +88,7 @@ class MapViewState extends State<MapView> {
           if (location != null) {
             markerWidgets.add(buildMarkerWidget(
                 context,
-                transformer.toOffset(LatLng.degree(location!.latitude, location!.longitude)),
+                transformer.toOffset(location!),
                 Icon(
                   Icons.account_circle,
                   color: colors.foreground,
@@ -155,8 +156,12 @@ class PolylinePainter extends CustomPainter {
   DeviceIdentifier? deviceID;
   final MapTransformer transformer;
 
-  Offset generateOffset(Position p) {
+  Offset generateOffsetPosition(Position p) {
     LatLng coordinate = LatLng.degree(p.latitude, p.longitude);
+    return transformer.toOffset(coordinate);
+  }
+
+  Offset generateOffsetLatLng(LatLng coordinate) {
     return transformer.toOffset(coordinate);
   }
 
@@ -172,8 +177,8 @@ class PolylinePainter extends CustomPainter {
       DateTime time1 = x[i].time;
       DateTime time2 = x[i + 1].time;
       if (time1.difference(time2) < Settings.scanTime) continue;
-      Offset p1 = generateOffset(x[i].location!);
-      Offset p2 = generateOffset(x[i + 1].location!);
+      Offset p1 = generateOffsetLatLng(x[i].location!);
+      Offset p2 = generateOffsetLatLng(x[i + 1].location!);
       canvas.drawLine(p1, p2, paint);
     }
   }

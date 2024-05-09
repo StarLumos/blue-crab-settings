@@ -45,7 +45,7 @@ class ReportData {
 
 /// Datum used to generate Data
 class DataPoint {
-  Position? location;
+  LatLng? location;
   List<ScanResult> devices;
   DateTime time = DateTime.now();
   DataPoint(this.location, this.devices);
@@ -53,7 +53,7 @@ class DataPoint {
 
 class DeviceDataPoint {
   DateTime time;
-  Position? location;
+  LatLng? location;
   DeviceDataPoint(this.time, this.location);
 }
 
@@ -71,7 +71,7 @@ class Device {
     Set<LatLng> locations = {};
     for (DeviceDataPoint dataPoint in this.dataPoints) {
       if (dataPoint.location == null) continue;
-      locations.add(LatLng.degree(dataPoint.location!.latitude, dataPoint.location!.longitude));
+      locations.add(dataPoint.location!);
     }
     return locations;
   })();
