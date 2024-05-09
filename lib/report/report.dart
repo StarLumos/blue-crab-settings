@@ -24,7 +24,7 @@ class ReportData {
 
     for (DataPoint dataPoint in dataPoints) {
       for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
-        report[deviceID]!.dataPoints.add(DeviceDataPoint(dataPoint.time, dataPoint.location));
+        report[deviceID]!.dataPoints.add(dataPoint);
       }
     }
 
@@ -51,12 +51,6 @@ class DataPoint {
   DataPoint(this.location, this.devices);
 }
 
-class DeviceDataPoint {
-  DateTime time;
-  LatLng? location;
-  DeviceDataPoint(this.time, this.location);
-}
-
 /// Device data type
 ///
 /// This type is used to pair details of Bluetooth Devices
@@ -64,12 +58,12 @@ class DeviceDataPoint {
 class Device {
   BluetoothDevice device;
   AdvertisementData data;
-  Set<DeviceDataPoint> dataPoints = {};
+  Set<DataPoint> dataPoints = {};
   Device(this.device, this.data);
 
   late Set<LatLng> locations = (() {
     Set<LatLng> locations = {};
-    for (DeviceDataPoint dataPoint in this.dataPoints) {
+    for (DataPoint dataPoint in this.dataPoints) {
       if (dataPoint.location == null) continue;
       locations.add(dataPoint.location!);
     }
@@ -78,7 +72,7 @@ class Device {
 
   late int incidence = (() {
     int result = 0;
-    List<DeviceDataPoint> dataPoints = this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
+    List<DataPoint> dataPoints = this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
     while (dataPoints.length > 1) {
       DateTime a = dataPoints.elementAt(0).time;
       DateTime b = dataPoints.elementAt(1).time;
