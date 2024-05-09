@@ -49,11 +49,14 @@ dependencies:
   collection: ^1.18.0
   flutter_launcher_icons: ^0.13.1
   vibration: ^1.8.4
+  json_serializable: ^6.8.0
 
 dev_dependencies:
+  build_runner: ^2.3.3
   rename: ^3.0.2
   flutter_test:
     sdk: flutter
+  json_serializable: ^6.8.0
 flutter_icons:
   image_path: "icons/logo.jpg"
   android: true
