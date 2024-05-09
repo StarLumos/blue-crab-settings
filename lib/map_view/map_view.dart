@@ -42,11 +42,8 @@ class MapView extends StatefulWidget {
 }
 
 class MapViewState extends State<MapView> {
-  LatLng? location;
-  late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  bool followUser = true;
 
   @override
   void initState() {
@@ -56,15 +53,6 @@ class MapViewState extends State<MapView> {
         MapController(
           location: LatLng.degree(45.511280676982636, -122.68334923167914),
         );
-
-    positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(Settings.distance))
-        .listen((Position? position) {
-      location = position?.toLatLng();
-      if (followUser) {
-        widget.controller?.center = location!;
-      }
-      setState() {}
-    });
   }
 
   @override
@@ -85,17 +73,6 @@ class MapViewState extends State<MapView> {
                   ),
                   false))
               .toList();
-          if (location != null) {
-            markerWidgets.add(buildMarkerWidget(
-                context,
-                transformer.toOffset(location!),
-                Icon(
-                  Icons.account_circle,
-                  color: colors.foreground,
-                  size: 48.0,
-                ),
-                true));
-          }
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onDoubleTapDown: (details) => onDoubleTap(
