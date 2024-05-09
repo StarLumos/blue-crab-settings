@@ -3,32 +3,30 @@ import 'package:bluetooth_detector/styles/colors.dart';
 
 class AppButtonStyle {
   static ButtonStyle enableBluetoothButtonStyle = ButtonStyle(
-    iconColor: MaterialStateProperty.all(colors.primaryText),
-    foregroundColor: MaterialStateProperty.all(colors.primaryText),
-    backgroundColor: MaterialStateProperty.all(colors.foreground),
-    overlayColor: MaterialStateProperty.all(colors.altText),
-    shadowColor: MaterialStateProperty.all(colors.transparent),
-    surfaceTintColor: MaterialStateProperty.all(colors.transparent),
+    iconColor: WidgetStateProperty.all(colors.primaryText),
+    foregroundColor: WidgetStateProperty.all(colors.primaryText),
+    backgroundColor: WidgetStateProperty.all(colors.foreground),
+    overlayColor: WidgetStateProperty.all(colors.altText),
+    shadowColor: WidgetStateProperty.all(colors.transparent),
+    surfaceTintColor: WidgetStateProperty.all(colors.transparent),
   );
 
   static ButtonStyle buttonWithBackground = ButtonStyle(
-    iconColor: MaterialStateProperty.all(colors.primaryText),
-    foregroundColor: MaterialStateProperty.all(colors.primaryText),
-    backgroundColor: MaterialStateProperty.all(colors.foreground),
-    overlayColor: MaterialStateProperty.all(colors.altText),
-    shadowColor: MaterialStateProperty.all(colors.transparent),
-    surfaceTintColor: MaterialStateProperty.all(colors.transparent),
-    shape:
-        MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)))),
+    iconColor: WidgetStateProperty.all(colors.primaryText),
+    foregroundColor: WidgetStateProperty.all(colors.primaryText),
+    backgroundColor: WidgetStateProperty.all(colors.foreground),
+    overlayColor: WidgetStateProperty.all(colors.altText),
+    shadowColor: WidgetStateProperty.all(colors.transparent),
+    surfaceTintColor: WidgetStateProperty.all(colors.transparent),
+    shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)))),
   );
 
   static ButtonStyle buttonWithoutBackground = ButtonStyle(
-    iconColor: MaterialStateProperty.all(colors.primaryText),
-    foregroundColor: MaterialStateProperty.all(colors.primaryText),
-    overlayColor: MaterialStateProperty.all(colors.altText),
-    shadowColor: MaterialStateProperty.all(colors.transparent),
-    surfaceTintColor: MaterialStateProperty.all(colors.transparent),
-    shape:
-        MaterialStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)))),
+    iconColor: WidgetStateProperty.all(colors.primaryText),
+    foregroundColor: WidgetStateProperty.all(colors.primaryText),
+    overlayColor: WidgetStateProperty.all(colors.altText),
+    shadowColor: WidgetStateProperty.all(colors.transparent),
+    surfaceTintColor: WidgetStateProperty.all(colors.transparent),
+    shape: WidgetStateProperty.all(const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0)))),
   );
 }
