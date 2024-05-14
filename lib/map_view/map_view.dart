@@ -1,9 +1,7 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
-import 'package:bluetooth_detector/map_view/position.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
 import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/settings.dart';
@@ -153,7 +151,7 @@ class PolylinePainter extends CustomPainter {
     for (int i = 0; i < x.length - 1; i++) {
       DateTime time1 = x[i].time;
       DateTime time2 = x[i + 1].time;
-      if (time1.difference(time2) < Settings.scanTime) continue;
+      if (time1.difference(time2) > Settings.scanTime) continue;
       Offset p1 = generateOffsetLatLng(x[i].location!);
       Offset p2 = generateOffsetLatLng(x[i + 1].location!);
       canvas.drawLine(p1, p2, paint);
