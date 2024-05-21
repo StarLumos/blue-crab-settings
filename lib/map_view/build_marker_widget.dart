@@ -8,8 +8,10 @@ Widget buildMarkerWidget(BuildContext context, Offset pos, Icon icon, bool backg
     width: 48,
     height: 48,
     child: GestureDetector(
-      child:
-          Stack(children: [if (backgroundCircle) Icon(Icons.circle, color: colors.primaryText, size: icon.size), icon]),
+      child: Center(
+        child: Stack(
+            children: [if (backgroundCircle) Icon(Icons.circle, color: colors.primaryText, size: icon.size), icon]),
+      ),
       onTap: () {
         showDialog(
           context: context,
