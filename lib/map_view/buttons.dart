@@ -1,17 +1,34 @@
 part of 'package:bluetooth_detector/map_view/scanner_view.dart';
 
 extension Buttons on ScannerViewState {
-  Widget scanButton(BuildContext context) {
+  Widget locationButton() {
     if (location == null) {
       return FloatingActionButton.large(
         onPressed: () async {
+          enableLocationStream();
           location = await getLocation();
+          print("Enabling Location Stream");
+          setState(() {});
+        },
+        backgroundColor: colors.foreground,
+        child: const Icon(Icons.location_disabled, color: colors.primaryText),
+      );
+    } else {
+      return FloatingActionButton.large(
+        onPressed: () async {
+          disableLocationStream();
+          location = null;
+          print("Disabling Location Stream");
           setState(() {});
         },
         backgroundColor: colors.foreground,
         child: const Icon(Icons.location_searching, color: colors.primaryText),
       );
-    } else if (FlutterBluePlus.isScanningNow) {
+    }
+  }
+
+  Widget scanButton() {
+    if (FlutterBluePlus.isScanningNow) {
       return FloatingActionButton.large(
         onPressed: () {
           log();

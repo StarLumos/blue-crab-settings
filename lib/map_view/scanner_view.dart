@@ -47,10 +47,7 @@ class ScannerViewState extends State<ScannerView> {
     reportData.dataPoints.add(DataPoint(location, scanResults));
   }
 
-  @override
-  void initState() {
-    super.initState();
-
+  void enableLocationStream() {
     positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
         .listen((Position? position) {
       setState(() {
@@ -61,6 +58,17 @@ class ScannerViewState extends State<ScannerView> {
         rescan();
       }
     });
+  }
+
+  void disableLocationStream() {
+    positionStream.cancel();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    enableLocationStream();
 
     scanResultsSubscription = FlutterBluePlus.onScanResults.listen((results) {
       scanResults = results;
@@ -90,7 +98,37 @@ class ScannerViewState extends State<ScannerView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: colors.background,
-      body: Center(child: scanButton(context)),
+      body: Center(
+          child: Row(children: [
+        Spacer(),
+        Column(
+          children: [
+            Spacer(),
+            Row(children: [
+              // Padding(
+              //   padding: EdgeInsets.all(16.0),
+              //   child: scanButton(context),
+              // ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: locationButton(),
+              ),
+            ]),
+            Row(children: [
+              // Padding(
+              //   padding: EdgeInsets.all(16.0),
+              //   child: locationButton(context),
+              // ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: scanButton(),
+              ),
+            ]),
+            Spacer(),
+          ],
+        ),
+        Spacer(),
+      ])),
     );
   }
 }
