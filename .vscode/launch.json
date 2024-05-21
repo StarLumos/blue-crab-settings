@@ -10,19 +10,22 @@
             "type": "dart"
         },
         {
-            "name": "bluetooth_detector (profile mode)",
+            "deviceId": "Dylan",
+            "name": "Profile iOS",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "bluetooth_detector (release mode)",
+            "deviceId": "Dylan",
+            "name": "Release iOS",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
         },
         {
-            "name": "bluetooth_detector (debug mode)",
+            "deviceId": "Dylan",
+            "name": "Debug iOS",
             "request": "launch",
             "type": "dart",
             "flutterMode": "debug"
