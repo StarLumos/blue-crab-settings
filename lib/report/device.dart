@@ -15,7 +15,7 @@ import 'package:bluetooth_detector/report/report.dart';
 /// along with metadata that goes along with it
 // @JsonSerializable()
 class Device {
-  DeviceIdentifier id;
+  String id;
   String platformName;
   AdvertisementData data;
   Set<Datum> dataPoints = {};

@@ -20,7 +20,7 @@ class ReportData {
     }
 
     for (Datum dataPoint in data) {
-      for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.id)) {
+      for (String deviceID in dataPoint.devices.map((e) => e.id)) {
         report[deviceID]!.dataPoints.add(dataPoint);
       }
     }

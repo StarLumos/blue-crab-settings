@@ -27,7 +27,7 @@ double clamp(double x, double min, double max) {
 class MapView extends StatefulWidget {
   MapController? controller;
   Report report;
-  DeviceIdentifier? deviceID;
+  String? deviceID;
 
   MapView({
     super.key,
@@ -129,7 +129,7 @@ class PolylinePainter extends CustomPainter {
   PolylinePainter(this.transformer, this.report, {this.deviceID});
 
   Report report;
-  DeviceIdentifier? deviceID;
+  String? deviceID;
   final MapTransformer transformer;
 
   Offset generateOffsetPosition(Position p) {

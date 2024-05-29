@@ -8,7 +8,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:bluetooth_detector/report/device.dart';
 
 class DeviceView extends StatelessWidget {
-  DeviceIdentifier deviceID;
+  String deviceID;
   Report report;
   late Device device = report[deviceID]!;
   late Iterable<String> manufacturers = device.data.manufacturerData.keys
