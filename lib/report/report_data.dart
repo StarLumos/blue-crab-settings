@@ -1,8 +1,11 @@
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/report/datum.dart';
 import 'package:bluetooth_detector/report/device.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'report_data.g.dart';
+
+@JsonSerializable()
 class ReportData {
   /// Time the report is created
   DateTime time = DateTime.now();
