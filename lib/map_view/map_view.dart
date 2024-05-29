@@ -143,7 +143,7 @@ class PolylinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..strokeWidth = 4;
-    List<DataPoint> x = report[deviceID]!.dataPoints.sorted((x, y) {
+    List<Datum> x = report[deviceID]!.dataPoints.sorted((x, y) {
       return x.time.compareTo(y.time);
     });
 
