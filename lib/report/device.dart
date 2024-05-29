@@ -4,15 +4,15 @@ import 'package:latlng/latlng.dart';
 import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/report/datum.dart';
 import 'package:bluetooth_detector/report/report.dart';
-// import 'package:json_annotation/json_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-// part 'device.g.dart';
+part 'device.g.dart';
 
 /// Device data type
 ///
 /// This type is used to pair details of Bluetooth Devices
 /// along with metadata that goes along with it
-// @JsonSerializable()
+@JsonSerializable()
 class Device {
   String id;
   String name;
@@ -21,14 +21,16 @@ class Device {
   Set<Datum> dataPoints = {};
   Device(this.id, this.name, this.platformName, this.manufacturer);
 
-  late Set<LatLng> locations = (() {
+  Set<LatLng> locations() {
     Set<LatLng> locations = {};
     for (Datum dataPoint in this.dataPoints) {
-      if (dataPoint.location == null) continue;
-      locations.add(dataPoint.location!);
+      LatLng? location = dataPoint.location();
+      if (location != null) {
+        locations.add(location);
+      }
     }
     return locations;
-  })();
+  }
 
   late int incidence = (() {
     int result = 0;
@@ -45,7 +47,7 @@ class Device {
 
   late Set<Area> areas = (() {
     Set<Area> result = {};
-    for (LatLng curr in locations) {
+    for (LatLng curr in locations()) {
       if (result.isEmpty) {
         Area a = {};
         a.add(curr);

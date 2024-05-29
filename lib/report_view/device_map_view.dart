@@ -28,7 +28,7 @@ class DeviceMapViewState extends State<DeviceMapView> {
       MapView(
         report: widget.report,
         deviceID: widget.device,
-        controller: MapController(location: middlePoint(widget.report[widget.device]!.locations.toList())),
+        controller: MapController(location: middlePoint(widget.report[widget.device]!.locations().toList())),
       ),
       BackButton(
         color: colors.primaryText,

@@ -11,7 +11,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 import 'package:map/map.dart';
@@ -60,7 +59,8 @@ class MapViewState extends State<MapView> {
       body: MapLayout(
         controller: widget.controller!,
         builder: (context, transformer) {
-          List<Widget>? markerWidgets = widget.report[widget.deviceID]!.locations
+          List<Widget>? markerWidgets = widget.report[widget.deviceID]!
+              .locations()
               .toList()
               .map((location) => buildMarkerWidget(
                   context,
@@ -153,8 +153,8 @@ class PolylinePainter extends CustomPainter {
       DateTime time1 = x[i].time;
       DateTime time2 = x[i + 1].time;
       if (time1.difference(time2) > Settings.scanTime) continue;
-      Offset p1 = generateOffsetLatLng(x[i].location!);
-      Offset p2 = generateOffsetLatLng(x[i + 1].location!);
+      Offset p1 = generateOffsetLatLng(x[i].location()!);
+      Offset p2 = generateOffsetLatLng(x[i + 1].location()!);
       canvas.drawLine(p1, p2, paint);
     }
   }
