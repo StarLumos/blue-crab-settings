@@ -48,7 +48,8 @@ class ScannerViewState extends State<ScannerView> {
   void log() {
     reportData.data.add(Datum(
         scanResults
-            .map((e) => Device(e.device.remoteId.toString(), e.device.platformName, e.advertisementData))
+            .map((e) => Device(e.device.remoteId.toString(), e.advertisementData.advName, e.device.platformName,
+                e.advertisementData.manufacturerData.keys.toList()))
             .toList(),
         location?.latitude.degrees,
         location?.longitude.degrees));

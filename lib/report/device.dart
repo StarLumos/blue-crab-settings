@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 import 'package:bluetooth_detector/settings.dart';
@@ -16,10 +15,11 @@ import 'package:bluetooth_detector/report/report.dart';
 // @JsonSerializable()
 class Device {
   String id;
+  String name;
   String platformName;
-  AdvertisementData data;
+  List<int> manufacturer;
   Set<Datum> dataPoints = {};
-  Device(this.id, this.platformName, this.data);
+  Device(this.id, this.name, this.platformName, this.manufacturer);
 
   late Set<LatLng> locations = (() {
     Set<LatLng> locations = {};
