@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
+import 'package:bluetooth_detector/report/datum.dart';
 import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/styles/colors.dart';

@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:bluetooth_detector/report_view/device_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
+import 'package:bluetooth_detector/report/report_data.dart';
 
 class ReportView extends StatefulWidget {
   final ReportData reportData;

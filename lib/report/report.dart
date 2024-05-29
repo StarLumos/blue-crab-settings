@@ -4,7 +4,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/report/datum.dart';
-// import 'package:json_annotation/json_annotation.dart';
 
 typedef Report = Map<DeviceIdentifier, Device?>;
 typedef Area = Set<LatLng>;
