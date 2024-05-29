@@ -5,16 +5,21 @@ import 'package:latlng/latlng.dart';
 import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/report/datum.dart';
 import 'package:bluetooth_detector/report/report.dart';
+// import 'package:json_annotation/json_annotation.dart';
+
+// part 'device.g.dart';
 
 /// Device data type
 ///
 /// This type is used to pair details of Bluetooth Devices
 /// along with metadata that goes along with it
+// @JsonSerializable()
 class Device {
-  BluetoothDevice device;
+  DeviceIdentifier id;
+  String platformName;
   AdvertisementData data;
   Set<Datum> dataPoints = {};
-  Device(this.device, this.data);
+  Device(this.id, this.platformName, this.data);
 
   late Set<LatLng> locations = (() {
     Set<LatLng> locations = {};

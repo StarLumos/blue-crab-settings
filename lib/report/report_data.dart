@@ -16,11 +16,11 @@ class ReportData {
     Set<Device> devices = _getDevices();
 
     for (Device device in devices) {
-      report[device.device.remoteId] = device;
+      report[device.id] = device;
     }
 
     for (Datum dataPoint in data) {
-      for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
+      for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.id)) {
         report[deviceID]!.dataPoints.add(dataPoint);
       }
     }

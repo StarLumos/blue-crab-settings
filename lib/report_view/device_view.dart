@@ -11,7 +11,6 @@ class DeviceView extends StatelessWidget {
   DeviceIdentifier deviceID;
   Report report;
   late Device device = report[deviceID]!;
-  late BluetoothDevice deviceData = device.device;
   late Iterable<String> manufacturers = device.data.manufacturerData.keys
       .map((e) => company_identifiers[e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
 
@@ -51,9 +50,9 @@ class DeviceView extends StatelessWidget {
             },
             style: AppButtonStyle.buttonWithBackground,
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              DataRow("", deviceData.remoteId.toString()),
-              DataRow("Name", deviceData.advName),
-              DataRow("Platform", deviceData.platformName),
+              DataRow("", device.id.toString()),
+              DataRow("Name", device.data.advName),
+              DataRow("Platform", device.platformName),
               DataRow("Manufacturer", manufacturers.join(", ")),
               Table(columnWidths: const {
                 0: FlexColumnWidth(1.0),
