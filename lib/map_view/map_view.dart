@@ -24,14 +24,14 @@ double clamp(double x, double min, double max) {
 }
 
 class MapView extends StatefulWidget {
-  MapController? controller;
   Report report;
+  MapController? controller;
   String? deviceID;
 
-  MapView({
+  MapView(
+    this.report, {
     super.key,
     this.controller,
-    this.report = const {},
     this.deviceID,
   });
 
@@ -59,7 +59,7 @@ class MapViewState extends State<MapView> {
       body: MapLayout(
         controller: widget.controller!,
         builder: (context, transformer) {
-          List<Widget>? markerWidgets = widget.report[widget.deviceID]!
+          List<Widget>? markerWidgets = widget.report.report[widget.deviceID]!
               .locations()
               .toList()
               .map((location) => buildMarkerWidget(
@@ -144,7 +144,7 @@ class PolylinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()..strokeWidth = 4;
-    List<Datum> x = report[deviceID]!.dataPoints.sorted((x, y) {
+    List<Datum> x = report.report[deviceID]!.dataPoints.sorted((x, y) {
       return x.time.compareTo(y.time);
     });
 

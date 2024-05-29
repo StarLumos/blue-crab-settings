@@ -9,7 +9,7 @@ import 'package:bluetooth_detector/report/device.dart';
 class DeviceView extends StatelessWidget {
   String deviceID;
   Report report;
-  late Device device = report[deviceID]!;
+  late Device device = report.report[deviceID]!;
   late Iterable<String> manufacturers = device.manufacturer
       .map((e) => company_identifiers[e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
 

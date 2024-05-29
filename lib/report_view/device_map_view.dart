@@ -26,9 +26,9 @@ class DeviceMapViewState extends State<DeviceMapView> {
   Widget build(BuildContext context) {
     return Stack(children: [
       MapView(
-        report: widget.report,
+        widget.report,
         deviceID: widget.device,
-        controller: MapController(location: middlePoint(widget.report[widget.device]!.locations().toList())),
+        controller: MapController(location: middlePoint(widget.report.report[widget.device]!.locations().toList())),
       ),
       BackButton(
         color: colors.primaryText,

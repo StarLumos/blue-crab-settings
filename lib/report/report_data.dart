@@ -15,16 +15,16 @@ class ReportData {
 
   /// Generate report based on data from dataPoints
   Report generateReport() {
-    Report report = Report();
+    Report report = Report({});
     Set<Device> devices = _getDevices();
 
     for (Device device in devices) {
-      report[device.id] = device;
+      report.report[device.id] = device;
     }
 
     for (Datum dataPoint in data) {
       for (String deviceID in dataPoint.devices.map((e) => e.id)) {
-        report[deviceID]!.dataPoints.add(dataPoint);
+        report.report[deviceID]!.dataPoints.add(dataPoint);
       }
     }
 

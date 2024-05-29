@@ -52,8 +52,9 @@ class ReportViewState extends State<ReportView> {
                   ])),
               Column(
                 children: [
-                  ...report.keys
-                      .sorted((a, b) => report[a]!.locations().length.compareTo(report[b]!.locations().length))
+                  ...report.report.keys
+                      .sorted((a, b) =>
+                          report.report[a]!.locations().length.compareTo(report.report[b]!.locations().length))
                       .reversed
                       .map((e) => DeviceView(deviceID: e, report: report)),
                 ],
