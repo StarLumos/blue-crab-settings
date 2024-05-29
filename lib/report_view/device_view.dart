@@ -60,7 +60,7 @@ class DeviceView extends StatelessWidget {
               }, children: [
                 TableRow(children: [
                   Tile("Incidence", device.incidence, colors.altText),
-                  Tile("Areas", device.areas.length, colors.background),
+                  Tile("Areas", device.areas().length, colors.background),
                   Tile("Locations", device.locations().length),
                 ])
               ]),

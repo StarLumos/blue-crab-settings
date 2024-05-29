@@ -21,4 +21,6 @@ class Datum {
   }
 
   Datum(this.devices, this.latitude, this.longitude);
+  factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+  Map<String, dynamic> toJson() => _$DatumToJson(this);
 }

@@ -20,6 +20,8 @@ class Device {
   List<int> manufacturer;
   Set<Datum> dataPoints = {};
   Device(this.id, this.name, this.platformName, this.manufacturer);
+  factory Device.fromJson(Map<String, dynamic> json) => _$DeviceFromJson(json);
+  Map<String, dynamic> toJson() => _$DeviceToJson(this);
 
   Set<LatLng> locations() {
     Set<LatLng> locations = {};
@@ -45,7 +47,7 @@ class Device {
     return result;
   })();
 
-  late Set<Area> areas = (() {
+  Set<Area> areas() {
     Set<Area> result = {};
     for (LatLng curr in locations()) {
       if (result.isEmpty) {
@@ -74,5 +76,5 @@ class Device {
       }
     }
     return result;
-  })();
+  }
 }
