@@ -1,15 +1,13 @@
-import 'dart:ffi';
-
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:latlng/latlng.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:bluetooth_detector/report/device.dart';
+// import 'package:json_annotation/json_annotation.dart';
 
-part 'datum.g.dart';
+// part 'datum.g.dart';
 
 /// Datum used to generate Data
-@JsonSerializable()
+// @JsonSerializable()
 class Datum {
-  List<ScanResult> devices;
+  List<Device> devices;
   double? latitude;
   double? longitude;
   DateTime time = DateTime.now();

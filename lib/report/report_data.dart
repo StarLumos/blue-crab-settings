@@ -8,7 +8,7 @@ class ReportData {
   DateTime time = DateTime.now();
 
   /// Raw data to generate report from
-  List<Datum> dataPoints = [];
+  List<Datum> data = [];
 
   /// Generate report based on data from dataPoints
   Report generateReport() {
@@ -19,7 +19,7 @@ class ReportData {
       report[device.device.remoteId] = device;
     }
 
-    for (Datum dataPoint in dataPoints) {
+    for (Datum dataPoint in data) {
       for (DeviceIdentifier deviceID in dataPoint.devices.map((e) => e.device.remoteId)) {
         report[deviceID]!.dataPoints.add(dataPoint);
       }
@@ -31,9 +31,9 @@ class ReportData {
   /// Get list of devices present in dataPoints
   Set<Device> _getDevices() {
     Set<Device> devices = <Device>{};
-    for (Datum dataPoint in dataPoints) {
-      for (ScanResult device in dataPoint.devices) {
-        devices.add(Device(device.device, device.advertisementData));
+    for (Datum datum in data) {
+      for (Device device in datum.devices) {
+        devices.add(device);
       }
     }
     return devices;

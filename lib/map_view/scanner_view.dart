@@ -9,6 +9,7 @@ import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:bluetooth_detector/report/device.dart';
 import 'package:bluetooth_detector/report/report_data.dart';
 import 'package:bluetooth_detector/report/datum.dart';
 import 'package:bluetooth_detector/settings.dart';
@@ -45,7 +46,8 @@ class ScannerViewState extends State<ScannerView> {
   });
 
   void log() {
-    reportData.dataPoints.add(Datum(scanResults, location?.latitude.degrees, location?.longitude.degrees));
+    reportData.data.add(Datum(scanResults.map((e) => Device(e.device, e.advertisementData)).toList(),
+        location?.latitude.degrees, location?.longitude.degrees));
   }
 
   void enableLocationStream() {
