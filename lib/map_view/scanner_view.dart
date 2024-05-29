@@ -45,7 +45,7 @@ class ScannerViewState extends State<ScannerView> {
   });
 
   void log() {
-    reportData.dataPoints.add(Datum(location, scanResults));
+    reportData.dataPoints.add(Datum(scanResults, location?.latitude.degrees, location?.longitude.degrees));
   }
 
   void enableLocationStream() {

@@ -5,6 +5,7 @@ import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:bluetooth_detector/report/device.dart';
 
 class DeviceView extends StatelessWidget {
   DeviceIdentifier deviceID;
