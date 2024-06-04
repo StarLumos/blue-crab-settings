@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:bluetooth_detector/report/report.dart';
+import 'package:bluetooth_detector/report/report_data.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<File> get _localFile async {
@@ -10,11 +10,11 @@ Future<File> get _localFile async {
   return File('$path/reports.json');
 }
 
-Future<File> write(Report report) async {
+Future<File> write(ReportData reportData) async {
   final file = await _localFile;
 
   // Write the file
-  return file.writeAsString('${report}');
+  return file.writeAsString('${reportData.toJson()}');
 }
 
 Future<String> read() async {
