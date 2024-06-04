@@ -32,7 +32,7 @@ class ScannerViewState extends State<ScannerView> {
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  ReportData reportData = ReportData();
+  ReportData reportData = read();
 
   bool isScanning = false;
   late StreamSubscription<bool> isScanningSubscription;

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:bluetooth_detector/report/report_data.dart';
 import 'package:path_provider/path_provider.dart';
@@ -17,13 +18,13 @@ Future<File> write(ReportData reportData) async {
   return file.writeAsString('${reportData.toJson()}');
 }
 
-Future<String> read() async {
+ReportData read() {
   try {
-    final file = await _localFile;
-
-    // Read the file
-    return file.readAsString();
+    final file = _localFile.then((() {})());
+    final fileData = await file.readAsString();
+    final result = ReportData.fromJson(jsonDecode(fileData));
+    return result;
   } catch (e) {
-    return "";
+    return ReportData();
   }
 }
