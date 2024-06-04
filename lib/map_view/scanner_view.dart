@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:bluetooth_detector/map_view/map_functions.dart';
 import 'package:bluetooth_detector/map_view/map_view.dart';
 import 'package:bluetooth_detector/map_view/position.dart';
+import 'package:bluetooth_detector/report/file.dart';
 import 'package:bluetooth_detector/report_view/report_view.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:flutter/material.dart';
