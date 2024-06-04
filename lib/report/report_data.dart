@@ -13,6 +13,8 @@ class ReportData {
   /// Raw data to generate report from
   List<Datum> data = [];
 
+  ReportData() {}
+
   /// Generate report based on data from dataPoints
   Report generateReport() {
     Report report = Report({});
@@ -41,4 +43,7 @@ class ReportData {
     }
     return devices;
   }
+
+  factory ReportData.fromJson(Map<String, dynamic> json) => _$ReportDataFromJson(json);
+  Map<String, dynamic> toJson() => _$ReportDataToJson(this);
 }
