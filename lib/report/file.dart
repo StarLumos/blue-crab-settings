@@ -18,22 +18,18 @@ Future<File> write(ReportData reportData) async {
 }
 
 ReportData read() {
-  var result = ReportData();
-  final completer = Completer<ReportData>();
-  asyncFunction().then((_) {
-    completer.complete();
-  });
-  completer.future.then((value) {
-    result = value;
+  ReportData result = ReportData();
+  asyncFunction().then((ReportData data) {
+    result = data;
   });
   return result;
 }
 
 Future<ReportData> asyncFunction() async {
   try {
-    final file = await _localFile;
-    final fileData = await file.readAsString();
-    final result = ReportData.fromJson(jsonDecode(fileData));
+    File file = await _localFile;
+    String fileData = await file.readAsString();
+    ReportData result = ReportData.fromJson(jsonDecode(fileData));
     return result;
   } catch (e) {
     return ReportData();
