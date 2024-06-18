@@ -77,4 +77,20 @@ class Device {
     }
     return result;
   }
+
+  late Duration timeTravelled = (() {
+    Duration result = Duration();
+    List<Datum> dataPoints = this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
+
+    for (int i = 0; i < dataPoints.length - 1; i++) {
+      DateTime time1 = dataPoints[i].time;
+      DateTime time2 = dataPoints[i + 1].time;
+      Duration time = time2.difference(time1);
+      if (time < Settings.scanTime) {
+        result += time;
+      }
+    }
+
+    return result;
+  })();
 }

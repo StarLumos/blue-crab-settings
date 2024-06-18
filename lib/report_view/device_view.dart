@@ -1,6 +1,7 @@
 import 'package:bluetooth_detector/assigned_numbers/company_identifiers.dart';
 import 'package:bluetooth_detector/report_view/device_map_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
+import 'package:bluetooth_detector/report_view/duration.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:bluetooth_detector/styles/button_styles.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class DeviceView extends StatelessWidget {
                 TableRow(children: [
                   Tile("Incidence", device.incidence, colors.altText),
                   Tile("Areas", device.areas().length, colors.background),
-                  Tile("Locations", device.locations().length),
+                  Tile("Duration", device.timeTravelled.printFriendly()),
                 ])
               ]),
             ])));
