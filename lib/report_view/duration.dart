@@ -6,29 +6,29 @@ extension PrintFriendly on Duration {
     int days = d.inDays;
     if (days > 0) {
       result.add("${days} days");
-      d - Duration(days: days);
+      d -= Duration(days: days);
     }
 
     int hours = d.inHours;
     if (hours > 0) {
-      result.add("${hours} hours");
-      d - Duration(hours: hours);
+      result.add("${hours} hrs");
+      d -= Duration(hours: hours);
     }
 
     int minutes = d.inMinutes;
     if (minutes > 0) {
-      result.add("${minutes} minutes");
-      d - Duration(minutes: minutes);
+      result.add("${minutes} mins");
+      d -= Duration(minutes: minutes);
     }
 
     int seconds = d.inSeconds;
     if (seconds > 0) {
-      result.add("${seconds} seconds");
-      d - Duration(seconds: seconds);
+      result.add("${seconds} sec");
+      d -= Duration(seconds: seconds);
     }
 
     if (result.isEmpty) {
-      result.add("< second");
+      result.add("< 1 sec");
     }
 
     return result.join(", ");
