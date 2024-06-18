@@ -17,20 +17,13 @@ Future<File> write(ReportData reportData) async {
   return file.writeAsString('${data}');
 }
 
-ReportData read() {
-  ReportData result = ReportData();
-  asyncFunction().then((ReportData data) {
-    result = data;
-  });
-  return result;
-}
-
-Future<ReportData> asyncFunction() async {
+Future<ReportData> read() async {
   try {
-    File file = await _localFile;
-    String fileData = await file.readAsString();
-    ReportData result = ReportData.fromJson(jsonDecode(fileData));
-    return result;
+    return _localFile.then((file) {
+      return file.readAsString().then((fileData) {
+        return ReportData.fromJson(jsonDecode(fileData));
+      });
+    });
   } catch (e) {
     return ReportData();
   }

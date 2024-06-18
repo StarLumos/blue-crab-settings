@@ -32,7 +32,7 @@ class ScannerViewState extends State<ScannerView> {
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  ReportData reportData = read();
+  ReportData reportData = ReportData();
 
   bool isScanning = false;
   late StreamSubscription<bool> isScanningSubscription;
@@ -42,18 +42,14 @@ class ScannerViewState extends State<ScannerView> {
 
   late StreamSubscription<DateTime> timeStreamSubscription;
 
-  final Stream<DateTime> _timeStream =
-      Stream.periodic(Settings.scanTime, (int x) {
+  final Stream<DateTime> _timeStream = Stream.periodic(Settings.scanTime, (int x) {
     return DateTime.now();
   });
 
   void log() {
     reportData.data.add(Datum(
         scanResults
-            .map((e) => Device(
-                e.device.remoteId.toString(),
-                e.advertisementData.advName,
-                e.device.platformName,
+            .map((e) => Device(e.device.remoteId.toString(), e.advertisementData.advName, e.device.platformName,
                 e.advertisementData.manufacturerData.keys.toList()))
             .toList(),
         location?.latitude.degrees,
@@ -61,8 +57,7 @@ class ScannerViewState extends State<ScannerView> {
   }
 
   void enableLocationStream() {
-    positionStream = Geolocator.getPositionStream(
-            locationSettings: Controllers.getLocationSettings(30))
+    positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
         .listen((Position? position) {
       setState(() {
         location = position?.toLatLng();
@@ -81,6 +76,10 @@ class ScannerViewState extends State<ScannerView> {
   @override
   void initState() {
     super.initState();
+
+    read().then((savedReportData) {
+      reportData = savedReportData;
+    });
 
     enableLocationStream();
 
