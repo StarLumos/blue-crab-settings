@@ -24,9 +24,9 @@ extension Scanner on ScannerViewState {
   }
 
   void probe(BluetoothDevice device) async {
-    device.discoverServices();
     if (autoConnect) {
-      device.connect(autoConnect: device.isAutoConnectEnabled);
+      await device.connect(autoConnect: device.isAutoConnectEnabled);
+      await device.discoverServices();
     }
   }
 }
