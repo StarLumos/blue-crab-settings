@@ -22,4 +22,11 @@ extension Scanner on ScannerViewState {
       startScan();
     });
   }
+
+  void probe(BluetoothDevice device) async {
+    device.discoverServices();
+    if (autoConnect) {
+      device.connect(autoConnect: device.isAutoConnectEnabled);
+    }
+  }
 }

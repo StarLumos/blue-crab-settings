@@ -33,6 +33,7 @@ class ScannerViewState extends State<ScannerView> {
   Offset? dragStart;
   double scaleStart = 1.0;
   ReportData reportData = ReportData();
+  bool autoConnect = false;
 
   bool isScanning = false;
   late StreamSubscription<bool> isScanningSubscription;
@@ -85,6 +86,7 @@ class ScannerViewState extends State<ScannerView> {
 
     scanResultsSubscription = FlutterBluePlus.onScanResults.listen((results) {
       scanResults = results;
+      probe(results.last.device);
       if (mounted) {
         setState(() {});
       }
@@ -118,10 +120,10 @@ class ScannerViewState extends State<ScannerView> {
           children: [
             Spacer(),
             Row(children: [
-              // Padding(
-              //   padding: EdgeInsets.all(16.0),
-              //   child: scanButton(context),
-              // ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: autoConnectButton(),
+              ),
               Padding(
                 padding: EdgeInsets.all(16.0),
                 child: locationButton(),

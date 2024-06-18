@@ -1,6 +1,18 @@
 part of 'package:bluetooth_detector/scanner_view/scanner_view.dart';
 
 extension Buttons on ScannerViewState {
+  Widget autoConnectButton() {
+    return FloatingActionButton.large(
+      onPressed: () async {
+        autoConnect = !autoConnect;
+        print("Auto Connect: ${autoConnect}");
+        setState(() {});
+      },
+      backgroundColor: colors.foreground,
+      child: Icon(autoConnect ? Icons.bluetooth : Icons.bluetooth_disabled, color: colors.primaryText),
+    );
+  }
+
   Widget locationButton() {
     if (location == null) {
       return FloatingActionButton.large(
