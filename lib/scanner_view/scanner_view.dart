@@ -17,8 +17,8 @@ import 'package:bluetooth_detector/settings.dart';
 import 'package:vibration/vibration.dart';
 import 'package:latlng/latlng.dart';
 
-part 'package:bluetooth_detector/map_view/buttons.dart';
-part 'package:bluetooth_detector/map_view/scanner.dart';
+part 'package:bluetooth_detector/scanner_view/buttons.dart';
+part 'package:bluetooth_detector/scanner_view/scanner.dart';
 
 class ScannerView extends StatefulWidget {
   const ScannerView({super.key});
