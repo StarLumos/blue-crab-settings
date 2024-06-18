@@ -9,12 +9,14 @@ Future<File> get _localFile async {
   return File('${directory.path}/reports.json');
 }
 
-Future<File> write(ReportData reportData) async {
+void write(ReportData reportData) async {
   final File file = await _localFile;
   final data = reportData.toJson().toString();
 
   // Write the file
-  return file.writeAsString('${data}');
+  await file.writeAsString('${data}');
+
+  print("Saved!");
 }
 
 Future<ReportData> read() async {
