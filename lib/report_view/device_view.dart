@@ -30,7 +30,16 @@ class DeviceView extends StatelessWidget {
   }
 
   Widget Tile(String label, Object value, [Color? color = null]) {
-    return Container(color: color, child: Center(child: Column(children: [Text(label), Text(value.toString())])));
+    return Container(
+        color: color,
+        child: Center(
+            child: Column(children: [
+          Text(label),
+          Text(
+            value.toString(),
+            textAlign: TextAlign.center,
+          )
+        ])));
   }
 
   @override
