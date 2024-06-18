@@ -80,6 +80,7 @@ class ScannerViewState extends State<ScannerView> {
 
     read().then((savedReportData) {
       reportData = savedReportData;
+      print("Loaded");
     });
 
     enableLocationStream();
