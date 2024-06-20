@@ -34,7 +34,7 @@ class Device {
     return locations;
   }
 
-  late int incidence = (() {
+  int incidence() {
     int result = 0;
     List<Datum> dataPoints = this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
     while (dataPoints.length > 1) {
@@ -45,7 +45,7 @@ class Device {
       dataPoints.removeAt(0);
     }
     return result;
-  })();
+  }
 
   Set<Area> areas() {
     Set<Area> result = {};
@@ -78,7 +78,7 @@ class Device {
     return result;
   }
 
-  late Duration timeTravelled = (() {
+  Duration timeTravelled() {
     Duration result = Duration();
     List<Datum> dataPoints = this.dataPoints.sorted((a, b) => a.time.compareTo(b.time));
 
@@ -92,5 +92,5 @@ class Device {
     }
 
     return result;
-  })();
+  }
 }
