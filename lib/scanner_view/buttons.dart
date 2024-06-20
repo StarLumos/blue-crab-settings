@@ -27,7 +27,7 @@ extension Buttons on ScannerViewState {
       );
     } else {
       return FloatingActionButton.large(
-        onPressed: () async {
+        onPressed: () {
           disableLocationStream();
           location = null;
           print("Disabling Location Stream");

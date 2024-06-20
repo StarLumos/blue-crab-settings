@@ -71,6 +71,7 @@ class ScannerViewState extends State<ScannerView> {
   }
 
   void disableLocationStream() {
+    positionStream.pause();
     positionStream.cancel();
   }
 
