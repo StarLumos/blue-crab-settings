@@ -69,7 +69,7 @@ class DeviceView extends StatelessWidget {
                 2: FlexColumnWidth(1.0),
               }, children: [
                 TableRow(children: [
-                  Tile("Incidence", device.incidence, colors.altText),
+                  Tile("Incidence", device.incidence(), colors.altText),
                   Tile("Areas", device.areas().length, colors.background),
                   Tile("Duration", device.timeTravelled().printFriendly()),
                 ])
