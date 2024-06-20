@@ -4,8 +4,6 @@ class AssignedNumbers {
   Map<String, String> company_identifiers = ids.company_identifiers;
 
   AssignedNumbers() {
-    for (var company in company_identifiers.values) {
-      print(company);
-    }
+    company_identifiers.values.forEach((company) => print(company));
   }
 }
