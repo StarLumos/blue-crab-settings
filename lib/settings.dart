@@ -1,4 +1,4 @@
 class Settings {
-  static Duration scanTime = Duration(seconds: 10);
+  static Duration scanTime = Duration(seconds: 1);
   static int distance = 10;
 }

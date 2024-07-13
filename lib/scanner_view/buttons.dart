@@ -9,7 +9,8 @@ extension Buttons on ScannerViewState {
         setState(() {});
       },
       backgroundColor: colors.foreground,
-      child: Icon(autoConnect ? Icons.bluetooth : Icons.bluetooth_disabled, color: colors.primaryText),
+      child: Icon(autoConnect ? Icons.bluetooth : Icons.bluetooth_disabled,
+          color: colors.primaryText),
     );
   }
 
@@ -45,12 +46,43 @@ extension Buttons on ScannerViewState {
         onPressed: () {
           log();
           stopScan();
-          write(reportData);
-          Vibration.vibrate(
-              pattern: [250, 100, 100, 100, 100, 100, 250, 100, 500, 250, 250, 100, 750, 500],
-              intensities: [255, 0, 255, 0, 255, 0, 255, 0, 255, 0, 255, 0, 255, 0]);
+          write(report);
+          Vibration.vibrate(pattern: [
+            250,
+            100,
+            100,
+            100,
+            100,
+            100,
+            250,
+            100,
+            500,
+            250,
+            250,
+            100,
+            750,
+            500
+          ], intensities: [
+            255,
+            0,
+            255,
+            0,
+            255,
+            0,
+            255,
+            0,
+            255,
+            0,
+            255,
+            0,
+            255,
+            0
+          ]);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SafeArea(child: ReportView(reportData: reportData))));
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SafeArea(child: ReportView(report: report))));
         },
         backgroundColor: colors.altText,
         child: const Icon(Icons.stop, color: colors.primaryText),
