@@ -11,8 +11,9 @@ class DeviceView extends StatelessWidget {
   String deviceID;
   Report report;
   late Device device = report.report[deviceID]!;
-  late Iterable<String> manufacturers = device.manufacturer
-      .map((e) => company_identifiers[e.toRadixString(16).toUpperCase().padLeft(4, "0")] ?? "Unknown");
+  late Iterable<String> manufacturers = device.manufacturer.map((e) =>
+      company_identifiers[e.toRadixString(16).toUpperCase().padLeft(4, "0")] ??
+      "Unknown");
 
   DeviceView({super.key, required this.deviceID, required this.report});
 
@@ -26,7 +27,9 @@ class DeviceView extends StatelessWidget {
     }
     text += value;
 
-    return Text(text, style: const TextStyle(color: colors.primaryText), textAlign: TextAlign.left);
+    return Text(text,
+        style: const TextStyle(color: colors.primaryText),
+        textAlign: TextAlign.left);
   }
 
   Widget Tile(String label, Object value, [Color? color = null]) {
@@ -58,7 +61,8 @@ class DeviceView extends StatelessWidget {
                           ))));
             },
             style: AppButtonStyle.buttonWithBackground,
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               DataRow("", device.id.toString()),
               DataRow("Name", device.name),
               DataRow("Platform", device.platformName),
