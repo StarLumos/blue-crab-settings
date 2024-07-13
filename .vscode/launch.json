@@ -30,5 +30,12 @@
             "type": "dart",
             "flutterMode": "debug"
         },
+        {
+            "deviceId": "SM T220",
+            "name": "Debug Andoid",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug"
+        },
     ]
 }
