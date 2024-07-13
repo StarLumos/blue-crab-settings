@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bluetooth_detector/report/device.dart';
-import 'package:bluetooth_detector/report/report_data.dart';
+import 'package:bluetooth_detector/report/report.dart';
 import 'package:bluetooth_detector/report/datum.dart';
 import 'package:bluetooth_detector/settings.dart';
 import 'package:vibration/vibration.dart';
@@ -32,7 +32,7 @@ class ScannerViewState extends State<ScannerView> {
   late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  ReportData reportData = ReportData();
+  Report report = Report({});
   bool autoConnect = false;
 
   bool isScanning = false;
@@ -43,22 +43,32 @@ class ScannerViewState extends State<ScannerView> {
 
   late StreamSubscription<DateTime> timeStreamSubscription;
 
-  final Stream<DateTime> _timeStream = Stream.periodic(Settings.scanTime, (int x) {
+  final Stream<DateTime> _timeStream =
+      Stream.periodic(Settings.scanTime, (int x) {
     return DateTime.now();
   });
 
   void log() {
-    reportData.data.add(Datum(
-        scanResults
-            .map((e) => Device(e.device.remoteId.toString(), e.advertisementData.advName, e.device.platformName,
-                e.advertisementData.manufacturerData.keys.toList()))
-            .toList(),
-        location?.latitude.degrees,
-        location?.longitude.degrees));
+    List<Device> devices = scanResults
+        .map((e) => Device(
+            e.device.remoteId.toString(),
+            e.advertisementData.advName,
+            e.device.platformName,
+            e.advertisementData.manufacturerData.keys.toList()))
+        .toList();
+    for (Device d in devices) {
+      if (report.report[d.id] == null) {
+        report.report[d.id] =
+            Device(d.id, d.name, d.platformName, d.manufacturer);
+      }
+      report.report[d.id]?.dataPoints
+          .add(Datum(location?.latitude.degrees, location?.longitude.degrees));
+    }
   }
 
   void enableLocationStream() {
-    positionStream = Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(30))
+    positionStream = Geolocator.getPositionStream(
+            locationSettings: Controllers.getLocationSettings(30))
         .listen((Position? position) {
       setState(() {
         location = position?.toLatLng();
@@ -79,9 +89,8 @@ class ScannerViewState extends State<ScannerView> {
   void initState() {
     super.initState();
 
-    read().then((savedReportData) {
-      reportData = savedReportData;
-      print("Loaded");
+    read().then((savedReport) {
+      report = savedReport;
     });
 
     enableLocationStream();
