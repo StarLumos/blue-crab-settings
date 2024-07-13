@@ -14,5 +14,6 @@ Report _$ReportFromJson(Map<String, dynamic> json) => Report(
     );
 
 Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
-      'report': instance.report,
+      'report': instance.report
+          .map((a, b) => MapEntry("${a}", "${b?.toJson() ?? ""}")),
     };
