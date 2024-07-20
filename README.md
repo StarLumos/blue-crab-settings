@@ -88,13 +88,15 @@ flutter doctor
 ```
 Running flutter doctor...
 Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, 3.16.7, on macOS 14.5 23F79 darwin-arm64, locale en-US)
-[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
-[✓] Xcode - develop for iOS and macOS (Xcode 15.4)
-[✓] Chrome - develop for the web
-[✓] Android Studio (version 2023.1)
-[✓] VS Code (version 1.91.0)
-[✓] Connected device (3 available)
+
+[✓] Flutter (Channel stable, 3.22.1, on Ubuntu 20.04 (LTS), locale en)
+[!] Android toolchain - develop for Android devices
+[!] Chrome - develop for the web
+[!] Android Studio (not installed)
+[✓] Linux toolchain - develop for Linux desktop
+[✓] VS Code (version 1.89)
+[✓] Connected device (1 available)
+[✓] Network resources
 
 ! Doctor found issues in 3 categories.
 ```
