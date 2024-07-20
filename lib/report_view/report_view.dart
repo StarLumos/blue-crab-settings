@@ -5,12 +5,10 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:bluetooth_detector/report_view/device_view.dart';
 import 'package:bluetooth_detector/report/report.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class ReportView extends StatefulWidget {
-  ReportData reportData;
-  late Report report;
-  ReportView({super.key, required this.reportData});
+  final Report report;
+  ReportView({super.key, required this.report});
 
   @override
   ReportViewState createState() => ReportViewState();
@@ -20,7 +18,6 @@ class ReportViewState extends State<ReportView> {
   @override
   void initState() {
     super.initState();
-    widget.report = widget.reportData.generateReport();
   }
 
   @override
@@ -38,7 +35,9 @@ class ReportViewState extends State<ReportView> {
                         const Spacer(),
                         Padding(
                           padding: const EdgeInsets.all(4),
-                          child: Text("Report", textAlign: TextAlign.center, style: TextStyles.title),
+                          child: Text("Report",
+                              textAlign: TextAlign.center,
+                              style: TextStyles.title),
                         ),
                         const Spacer(),
                       ],
@@ -51,11 +50,15 @@ class ReportViewState extends State<ReportView> {
                   ])),
               Column(
                 children: [
-                  ...widget.report.keys
-                      .sorted(
-                          (a, b) => widget.report[a]!.locations.length.compareTo(widget.report[b]!.locations.length))
+                  ...widget.report.report.keys
+                      .sorted((a, b) => widget.report.report[a]!
+                          .locations()
+                          .length
+                          .compareTo(
+                              widget.report.report[b]!.locations().length))
                       .reversed
-                      .map((e) => DeviceView(device: e, report: widget.report)),
+                      .map((e) =>
+                          DeviceView(deviceID: e, report: widget.report)),
                 ],
               ),
             ],

@@ -1,11 +1,14 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 
 import 'package:bluetooth_detector/map_view/build_marker_widget.dart';
 import 'package:bluetooth_detector/map_view/tile_servers.dart';
+import 'package:bluetooth_detector/report/datum.dart';
+import 'package:bluetooth_detector/report/report.dart';
+import 'package:bluetooth_detector/settings.dart';
 import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,13 +24,15 @@ double clamp(double x, double min, double max) {
 }
 
 class MapView extends StatefulWidget {
-  List<LatLng> markers;
+  Report report;
   MapController? controller;
+  String? deviceID;
 
-  MapView({
+  MapView(
+    this.report, {
     super.key,
-    this.markers = const [],
     this.controller,
+    this.deviceID,
   });
 
   @override
@@ -35,11 +40,8 @@ class MapView extends StatefulWidget {
 }
 
 class MapViewState extends State<MapView> {
-  Position? location;
-  late StreamSubscription<Position> positionStream;
   Offset? dragStart;
   double scaleStart = 1.0;
-  bool followUser = true;
 
   @override
   void initState() {
@@ -49,15 +51,6 @@ class MapViewState extends State<MapView> {
         MapController(
           location: LatLng.degree(45.511280676982636, -122.68334923167914),
         );
-
-    positionStream =
-        Geolocator.getPositionStream(locationSettings: Controllers.getLocationSettings(0)).listen((Position? position) {
-      location = position;
-      if (followUser) {
-        widget.controller!.center = LatLng.degree(position!.latitude, position.longitude);
-      }
-      setState() {}
-    });
   }
 
   @override
@@ -66,16 +59,19 @@ class MapViewState extends State<MapView> {
       body: MapLayout(
         controller: widget.controller!,
         builder: (context, transformer) {
-          List<Widget> markerWidgets = widget.markers
-              .map((location) => buildMarkerWidget(context, transformer.toOffset(location), Colors.red))
+          List<Widget>? markerWidgets = widget.report.report[widget.deviceID]!
+              .locations()
+              .toList()
+              .map((location) => buildMarkerWidget(
+                  context,
+                  transformer.toOffset(location),
+                  Icon(
+                    Icons.circle,
+                    color: Colors.red,
+                    size: 24.0,
+                  ),
+                  false))
               .toList();
-          if (location != null) {
-            markerWidgets.add(buildMarkerWidget(
-                context,
-                transformer.toOffset(LatLng.degree(location!.latitude, location!.longitude)),
-                colors.foreground,
-                Icons.account_circle));
-          }
           return GestureDetector(
             behavior: HitTestBehavior.opaque,
             onDoubleTapDown: (details) => onDoubleTap(
@@ -89,7 +85,12 @@ class MapViewState extends State<MapView> {
               onPointerSignal: (event) {
                 if (event is PointerScrollEvent) {
                   transformer.setZoomInPlace(
-                      clamp(widget.controller!.zoom + event.scrollDelta.dy / -1000.0, 2, 18), event.localPosition);
+                      clamp(
+                          widget.controller!.zoom +
+                              event.scrollDelta.dy / -1000.0,
+                          2,
+                          18),
+                      event.localPosition);
                   setState(() {});
                 }
               },
@@ -115,6 +116,10 @@ class MapViewState extends State<MapView> {
                       );
                     },
                   ),
+                  CustomPaint(
+                    painter: PolylinePainter(transformer, widget.report,
+                        deviceID: widget.deviceID),
+                  ),
                   ...markerWidgets,
                 ],
               ),
@@ -124,4 +129,49 @@ class MapViewState extends State<MapView> {
       ),
     );
   }
+}
+
+class PolylinePainter extends CustomPainter {
+  PolylinePainter(this.transformer, this.report, {this.deviceID});
+
+  Report report;
+  String? deviceID;
+  final MapTransformer transformer;
+
+  Offset generateOffsetPosition(Position p) {
+    LatLng coordinate = LatLng.degree(p.latitude, p.longitude);
+    return transformer.toOffset(coordinate);
+  }
+
+  Offset generateOffsetLatLng(LatLng coordinate) {
+    return transformer.toOffset(coordinate);
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()..strokeWidth = 4;
+    List<Datum> x = report.report[deviceID]!.dataPoints.sorted((x, y) {
+      return x.time.compareTo(y.time);
+    });
+
+    paint.color = colors.altText;
+    for (int i = 0; i < x.length - 1; i++) {
+      DateTime time1 = x[i].time;
+      DateTime time2 = x[i + 1].time;
+      if (time2.difference(time1) > Settings.scanTime) continue;
+      Offset p1 = generateOffsetLatLng(x[i].location()!);
+      Offset p2 = generateOffsetLatLng(x[i + 1].location()!);
+      canvas.drawLine(p1, p2, paint);
+    }
+  }
+
+  // Since this Sky painter has no fields, it always paints
+  // the same thing and semantics information is the same.
+  // Therefore we return false here. If we had fields (set
+  // from the constructor) then we would return true if any
+  // of them differed from the same fields on the oldDelegate.
+  @override
+  bool shouldRepaint(PolylinePainter oldDelegate) => false;
+  @override
+  bool shouldRebuildSemantics(PolylinePainter oldDelegate) => false;
 }

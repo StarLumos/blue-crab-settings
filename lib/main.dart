@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:bluetooth_detector/bluetooth_disabled_view.dart';
-import 'package:bluetooth_detector/map_view/scanner_view.dart';
+import 'package:bluetooth_detector/bluetooth_disabled_view/bluetooth_disabled_view.dart';
+import 'package:bluetooth_detector/scanner_view/scanner_view.dart';
 
 void main() {
   FlutterBluePlus.setLogLevel(LogLevel.verbose, color: true);

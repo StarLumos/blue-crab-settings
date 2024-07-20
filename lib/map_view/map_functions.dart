@@ -1,9 +1,10 @@
+import 'package:bluetooth_detector/map_view/position.dart';
 import 'package:collection/collection.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlng/latlng.dart';
 
 /// Determine the current position of the device.
-Future<Position> getLocation() async {
+Future<LatLng> getLocation() async {
   bool serviceEnabled;
   LocationPermission permission;
 
@@ -25,7 +26,7 @@ Future<Position> getLocation() async {
   }
 
   Position position = await Geolocator.getCurrentPosition();
-  return position;
+  return position.toLatLng();
 }
 
 LatLng middlePoint(List<LatLng> locations) {
