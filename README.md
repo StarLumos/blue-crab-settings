@@ -95,8 +95,6 @@ Doctor summary (to see all details, run flutter doctor -v):
 [✓] Android Studio (version 2023.1)
 [✓] VS Code (version 1.91.0)
 [✓] Connected device (3 available)
-
-! Doctor found issues in 3 categories.
 ```
 
 ### Troubleshoot Flutter doctor issues
