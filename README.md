@@ -43,36 +43,36 @@ tar -xf ~/Downloads/flutter_linux_3.22.3-stable.tar.xz -C <your directory locati
 - When finished, the Flutter SDK should be in `/<your directory location>/flutter`
 
 ### Add Flutter to your PATH
-- Check which shell starts when you open a new console window. This is your default shell.
+Check which shell starts when you open a new console window. This is your default shell.
 ```
 echo $SHELL
 ```
-- Based on your default shell, choose one of the commands below.
-    - `bash`
+Based on your default shell, choose one of the commands below.
+- `bash`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.bash_profile
 ```
-    - `zsh`
+- `zsh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.zshenv
 ```
-    - `fish`
+- `fish`
 ```
 fish_add_path -g -p /usr/bin/flutter/bin
 ```
-    - `csh`
+- `csh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.cshrc
 ```
-    - `tcsh`
+- `tcsh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.tcshrc
 ```
-    - `ksh`
+- `ksh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
-    - `sh`
+- `sh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
