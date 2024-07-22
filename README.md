@@ -48,31 +48,31 @@ tar -xf ~/Downloads/flutter_linux_3.22.3-stable.tar.xz -C <your directory locati
 echo $SHELL
 ```
 - Based on your default shell, choose one of the commands below.
-- - `bash`
+    - `bash`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.bash_profile
 ```
-- - `zsh`
+    - `zsh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.zshenv
 ```
-- - `fish`
+    - `fish`
 ```
 fish_add_path -g -p /usr/bin/flutter/bin
 ```
-- - `csh`
+    - `csh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.cshrc
 ```
-- - `tcsh`
+    - `tcsh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.tcshrc
 ```
-- - `ksh`
+    - `ksh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
-- - `sh`
+    - `sh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
@@ -88,14 +88,18 @@ flutter doctor
 ```
 Running flutter doctor...
 Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, 3.16.7, on macOS 14.5 23F79 darwin-arm64, locale en-US)
-[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
-[✓] Xcode - develop for iOS and macOS (Xcode 15.4)
-[✓] Chrome - develop for the web
-[✓] Android Studio (version 2023.1)
-[✓] VS Code (version 1.91.0)
-[✓] Connected device (3 available)
+[✓] Flutter (Channel stable, 3.22.1, on Ubuntu 20.04 (LTS), locale en)
+[!] Android toolchain - develop for Android devices
+[!] Chrome - develop for the web
+[!] Android Studio (not installed)
+[✓] Linux toolchain - develop for Linux desktop
+[✓] VS Code (version 1.89)
+[✓] Connected device (1 available)
+[✓] Network resources
+
+! Doctor found issues in 3 categories.
 ```
+Note: `flutter doctor` finding issues in 3 categories is completely normal. Users should only need checkmarks for the platform(s) that you're developing for. If an "!" is found for the platform(s) that are being developed on, ensure that there are no issues with the installation and/or configuration of said platform.
 
 ### Troubleshoot Flutter doctor issues
 - Run the following command:
