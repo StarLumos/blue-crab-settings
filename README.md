@@ -96,13 +96,16 @@ You do not need ALL components. It should resemble something like this:
 ```
 Running flutter doctor...
 Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, 3.16.7, on macOS 14.5 23F79 darwin-arm64, locale en-US)
-[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
-[✓] Xcode - develop for iOS and macOS (Xcode 15.4)
-[✓] Chrome - develop for the web
-[✓] Android Studio (version 2023.1)
-[✓] VS Code (version 1.91.0)
-[✓] Connected device (3 available)
+[✓] Flutter (Channel stable, 3.22.1, on Ubuntu 20.04 (LTS), locale en)
+[!] Android toolchain - develop for Android devices
+[!] Chrome - develop for the web
+[!] Android Studio (not installed)
+[✓] Linux toolchain - develop for Linux desktop
+[✓] VS Code (version 1.89)
+[✓] Connected device (1 available)
+[✓] Network resources
+
+! Doctor found issues in 3 categories.
 ```
 
 ### Troubleshoot Flutter doctor issues
@@ -140,5 +143,6 @@ If there's a package in the generated "table", this is perfectly fine as long as
 You are already using the newest resolvable versions listed in the 'Resolvable' column.
 Newer versions, listed in 'Latest', may not be mutually compatible.
 ```
+If this isn't the case, be sure to run any commands suggested by the program. It may be `flutter pub upgrade --major-versions` a second time, which is fine.
 
 After run all of these commands, you're set to start coding! All files to edit will be in the folder `lib` in files ending in `.dart`.
