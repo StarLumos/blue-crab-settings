@@ -122,3 +122,23 @@ To clone this repository, run this command:
 ```
 git clone git@github.com:DIPrLab/bluetooth_detector.git
 ```
+
+## Getting packages and setting up your code editor
+To get all the Flutter plugins, run the following to get the most updated dependencies available:
+```
+flutter pub get
+flutter pub upgrade
+flutter pub upgrade --major-versions
+```
+
+Now run this command:
+```
+flutter pub outdated
+```
+If there's a package in the generated "table", this is perfectly fine as long as something similar to what is below is generated after this "table".
+```
+You are already using the newest resolvable versions listed in the 'Resolvable' column.
+Newer versions, listed in 'Latest', may not be mutually compatible.
+```
+
+After run all of these commands, you're set to start coding! All files to edit will be in the folder `lib` in files ending in `.dart`.
