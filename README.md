@@ -2,6 +2,9 @@
 
 Blue Crab is an app that scans for and identifies Bluetooth tracking devices. The goal of this project is to prevent stalking and to provide wider services for more platforms than what is currently offered (i.e. Apple and Google/Android).
 
+Important note before installation:
+Blue Crab is not yet functional on Linux, but progress is being made to make it available. Stay tuned!
+
 ## Getting Started
 ### Downloading Flutter on Linux desktop
 - Verify that you have `bash`, `file`, `mkdir`, `rm`, and `which` installed on your device
