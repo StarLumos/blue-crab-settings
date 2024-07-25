@@ -2,6 +2,9 @@
 
 Blue Crab is an app that scans for and identifies Bluetooth tracking devices. The goal of this project is to prevent stalking and to provide wider services for more platforms than what is currently offered (i.e. Apple and Google/Android).
 
+Important note before installation:
+Blue Crab is not yet functional on Linux, but progress is being made to make it available. Stay tuned!
+
 ## Getting Started
 ### Downloading Flutter on Linux desktop
 - Verify that you have `bash`, `file`, `mkdir`, `rm`, and `which` installed on your device
@@ -47,44 +50,52 @@ Check which shell starts when you open a new console window. This is your defaul
 ```
 echo $SHELL
 ```
+
 Based on your default shell, choose one of the commands below.
 - `bash`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.bash_profile
 ```
+
 - `zsh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.zshenv
 ```
+
 - `fish`
 ```
 fish_add_path -g -p /usr/bin/flutter/bin
 ```
+
 - `csh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.cshrc
 ```
+
 - `tcsh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.tcshrc
 ```
+
 - `ksh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
+
 - `sh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
-- To apply this change, restart all open terminal sessions.
+
+To apply this change, restart all open terminal sessions.
 
 ### Check your development setup
-- Open a shell.
-- Run the following command:
+Open a shell and run the following command:
 ```
 flutter doctor
 ```
-- You do not need ALL components. It should resemble something like this:
+
+You do not need ALL components. It should resemble something like this:
 ```
 Running flutter doctor...
 Doctor summary (to see all details, run flutter doctor -v):
@@ -99,7 +110,6 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 ! Doctor found issues in 3 categories.
 ```
-Note: `flutter doctor` finding issues in 3 categories is completely normal. Users should only need checkmarks for the platform(s) that you're developing for. If an "!" is found for the platform(s) that are being developed on, ensure that there are no issues with the installation and/or configuration of said platform.
 
 ### Troubleshoot Flutter doctor issues
 - Run the following command:
@@ -112,3 +122,30 @@ Note: Installing the Flutter SDK means that all the packages (including the Dart
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Cloning
+To clone this repository, run this command:
+```
+git clone git@github.com:DIPrLab/bluetooth_detector.git
+```
+
+## Getting packages and setting up your code editor
+To get all the Flutter plugins, run the following to get the most updated dependencies available:
+```
+flutter pub get
+flutter pub upgrade
+flutter pub upgrade --major-versions
+```
+
+Now run this command:
+```
+flutter pub outdated
+```
+If there's a package in the generated "table", this is perfectly fine as long as something similar to what is below is generated after this "table".
+```
+You are already using the newest resolvable versions listed in the 'Resolvable' column.
+Newer versions, listed in 'Latest', may not be mutually compatible.
+```
+If this isn't the case, be sure to run any commands suggested by the program. It may be `flutter pub upgrade --major-versions` a second time, which is fine.
+
+After run all of these commands, you're set to start coding! All files to edit will be in the folder `lib` in files ending in `.dart`.
