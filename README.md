@@ -43,62 +43,66 @@ tar -xf ~/Downloads/flutter_linux_3.22.3-stable.tar.xz -C <your directory locati
 - When finished, the Flutter SDK should be in `/<your directory location>/flutter`
 
 ### Add Flutter to your PATH
-- Check which shell starts when you open a new console window. This is your default shell.
+Check which shell starts when you open a new console window. This is your default shell.
 ```
 echo $SHELL
 ```
-- Based on your default shell, choose one of the commands below.
-- - `bash`
+
+Based on your default shell, choose one of the commands below.
+- `bash`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.bash_profile
 ```
-- - `zsh`
+
+- `zsh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.zshenv
 ```
-- - `fish`
+
+- `fish`
 ```
 fish_add_path -g -p /usr/bin/flutter/bin
 ```
-- - `csh`
+
+- `csh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.cshrc
 ```
-- - `tcsh`
+
+- `tcsh`
 ```
 echo 'setenv PATH "/usr/bin/flutter/bin:$PATH"' >> ~/.tcshrc
 ```
-- - `ksh`
+
+- `ksh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
-- - `sh`
+
+- `sh`
 ```
 echo 'export PATH="/usr/bin/flutter/bin:$PATH"' >> ~/.profile
 ```
-- To apply this change, restart all open terminal sessions.
+
+To apply this change, restart all open terminal sessions.
 
 ### Check your development setup
-- Open a shell.
-- Run the following command:
+Open a shell and run the following command:
 ```
 flutter doctor
 ```
-- You do not need ALL components. It should resemble something like this:
+
+You do not need ALL components. It should resemble something like this:
 ```
 Running flutter doctor...
 Doctor summary (to see all details, run flutter doctor -v):
-
-[✓] Flutter (Channel stable, 3.22.1, on Ubuntu 20.04 (LTS), locale en)
-[!] Android toolchain - develop for Android devices
-[!] Chrome - develop for the web
-[!] Android Studio (not installed)
-[✓] Linux toolchain - develop for Linux desktop
-[✓] VS Code (version 1.89)
-[✓] Connected device (1 available)
-[✓] Network resources
-
-! Doctor found issues in 3 categories.
+[✓] Flutter (Channel stable, 3.16.7, on macOS 14.5 23F79 darwin-arm64, locale en-US)
+[✓] Android toolchain - develop for Android devices (Android SDK version 34.0.0)
+[✓] Xcode - develop for iOS and macOS (Xcode 15.4)
+[✓] Chrome - develop for the web
+[✓] Android Studio (version 2023.1)
+[✓] VS Code (version 1.91.0)
+[✓] Connected device (3 available)
 ```
 
 ### Troubleshoot Flutter doctor issues
@@ -112,3 +116,9 @@ Note: Installing the Flutter SDK means that all the packages (including the Dart
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Cloning
+To clone this repository, run this command:
+```
+git clone git@github.com:DIPrLab/bluetooth_detector.git
+```
