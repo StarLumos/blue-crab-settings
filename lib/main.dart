@@ -1,36 +1,34 @@
+import 'package:bluetooth_detector/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:bluetooth_detector/settings_view/settings_view.dart';
+import 'package:latlng/latlng.dart';
 
-void main() {
-  runApp(const App());
-}
-
-class App extends StatefulWidget {
-  const App({super.key});
+class SettingsView extends StatefulWidget {
+  const SettingsView({super.key});
 
   @override
-  State<App> createState() => _AppState();
+  SettingsViewState createState() => SettingsViewState();
 }
 
-class _AppState extends State<App> {
+class SettingsViewState extends State<SettingsView> {
+  List<LatLng> locations = [
+    LatLng.degree(111.111, 222.222),
+    LatLng.degree(333.333, 444.444),
+    LatLng.degree(555.555, 777.777),
+    LatLng.degree(888.888, 999.999),
+  ];
+
   @override
   void initState() {
     super.initState();
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    Widget screen = const SettingsView();
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(child: screen),
-      theme: ThemeData(),
+    return Scaffold(
+      backgroundColor: colors.background,
+      body: Center(
+        child: Spacer(),
+      ),
     );
   }
 }
