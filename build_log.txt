@@ -1,0 +1,68 @@
+Launching lib/main.dart on Linux in debug mode...
+Building Linux application...                                   
+✓ Built build/linux/x64/debug/bundle/bluetooth_detector
+
+══╡ EXCEPTION CAUGHT BY WIDGETS LIBRARY ╞═══════════════════════════════════════════════════════════
+The following assertion was thrown building Scaffold(dirty, state: ScaffoldState#16806(tickers:
+tracking 2 tickers)):
+No Directionality widget found.
+Scaffold widgets require a Directionality widget ancestor.
+The specific widget that could not find a Directionality ancestor was:
+  Scaffold
+The ownership chain for the affected widget is: "Scaffold ← SettingsView ← MediaQuery ←
+  _MediaQueryFromView ← _PipelineOwnerScope ← _ViewScope ← _RawView-[_DeprecatedRawViewKey
+  FlutterView#c8282] ← View ← [root]"
+Typically, the Directionality widget is introduced by the MaterialApp or WidgetsApp widget at the
+top of your application widget tree. It determines the ambient reading direction and is used, for
+example, to determine how to lay out text, how to interpret "start" and "end" values, and to resolve
+EdgeInsetsDirectional, AlignmentDirectional, and other *Directional objects.
+
+The relevant error-causing widget was:
+  Scaffold
+  Scaffold:file:///home/starlumos/Downloads/internship/main-project/blue-crab-settings/lib/main.dart:31:12
+
+When the exception was thrown, this was the stack:
+#0      debugCheckHasDirectionality.<anonymous closure> (package:flutter/src/widgets/debug.dart:353:7)
+#1      debugCheckHasDirectionality (package:flutter/src/widgets/debug.dart:373:4)
+#2      ScaffoldState.build (package:flutter/src/material/scaffold.dart:2849:12)
+#3      StatefulElement.build (package:flutter/src/widgets/framework.dart:5599:27)
+#4      ComponentElement.performRebuild (package:flutter/src/widgets/framework.dart:5487:15)
+#5      StatefulElement.performRebuild (package:flutter/src/widgets/framework.dart:5650:11)
+#6      Element.rebuild (package:flutter/src/widgets/framework.dart:5203:7)
+#7      ComponentElement._firstBuild (package:flutter/src/widgets/framework.dart:5469:5)
+#8      StatefulElement._firstBuild (package:flutter/src/widgets/framework.dart:5641:11)
+#9      ComponentElement.mount (package:flutter/src/widgets/framework.dart:5463:5)
+...     Normal element mounting (35 frames)
+#44     Element.inflateWidget (package:flutter/src/widgets/framework.dart:4340:16)
+#45     Element.updateChild (package:flutter/src/widgets/framework.dart:3849:18)
+#46     _RawViewElement._updateChild (package:flutter/src/widgets/view.dart:291:16)
+#47     _RawViewElement.mount (package:flutter/src/widgets/view.dart:314:5)
+...     Normal element mounting (7 frames)
+#54     Element.inflateWidget (package:flutter/src/widgets/framework.dart:4340:16)
+#55     Element.updateChild (package:flutter/src/widgets/framework.dart:3849:18)
+#56     RootElement._rebuild (package:flutter/src/widgets/binding.dart:1581:16)
+#57     RootElement.mount (package:flutter/src/widgets/binding.dart:1550:5)
+#58     RootWidget.attach.<anonymous closure> (package:flutter/src/widgets/binding.dart:1503:18)
+#59     BuildOwner.buildScope (package:flutter/src/widgets/framework.dart:2845:19)
+#60     RootWidget.attach (package:flutter/src/widgets/binding.dart:1502:13)
+#61     WidgetsBinding.attachToBuildOwner (package:flutter/src/widgets/binding.dart:1239:27)
+#62     WidgetsBinding.attachRootWidget (package:flutter/src/widgets/binding.dart:1221:5)
+#63     WidgetsBinding.scheduleAttachRootWidget.<anonymous closure> (package:flutter/src/widgets/binding.dart:1207:7)
+#67     _RawReceivePort._handleMessage (dart:isolate-patch/isolate_patch.dart:184:12)
+(elided 3 frames from class _Timer and dart:async-patch)
+
+════════════════════════════════════════════════════════════════════════════════════════════════════
+
+Syncing files to device Linux...                                   174ms
+
+Flutter run key commands.
+r Hot reload. 🔥🔥🔥
+R Hot restart.
+h List all available interactive commands.
+d Detach (terminate "flutter run" but leave application running).
+c Clear the screen
+q Quit (terminate the application on the device).
+
+A Dart VM Service on Linux is available at: http://127.0.0.1:34951/uD91eQHBLz4=/
+The Flutter DevTools debugger and profiler on Linux is available at: http://127.0.0.1:9101?uri=http://127.0.0.1:34951/uD91eQHBLz4=/
+Lost connection to device.
